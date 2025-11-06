@@ -1,0 +1,28 @@
+### IntelliJ IDEA ###
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+.idea/
+*.iml
+
+### VSCode ###
+.vscode/
+
+### Zed ###
+.zed/
+
+### Eclipse ###
+.project
+.classpath
+.settings/
+.factorypath
+bin/
+
+### Maven ###
+target/
+
+### Mac OS ###
+.DS_Store
+
+### Resources ###
+database.properties
