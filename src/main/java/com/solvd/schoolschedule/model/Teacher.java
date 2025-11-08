@@ -1,5 +1,8 @@
 package com.solvd.schoolschedule.model;
 
+/**
+ * Represents a teacher in the school schedule.
+ */
 public class Teacher {
     private final int id;
     private final String name;

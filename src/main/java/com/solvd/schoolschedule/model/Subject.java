@@ -1,5 +1,8 @@
 package com.solvd.schoolschedule.model;
 
+/**
+ * Represents a subject like Physics in the school schedule.
+ */
 public enum Subject {
     MATH("Mathematics"),
     PHYSICS("Physics"),
