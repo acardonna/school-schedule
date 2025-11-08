@@ -5,6 +5,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a timetable for a school.
+ */
 public class Timetable {
     private final List<Lesson> lessons;
     private double fitness;
