@@ -151,7 +151,7 @@ public class GeneticOperatorService {
             offspring = mutate(offspring);
 
             // Repair obvious constraint violations
-            offspring = repairConstraints(offspring);
+            //offspring = repairConstraints(offspring);
 
             newGeneration.add(offspring);
         }
