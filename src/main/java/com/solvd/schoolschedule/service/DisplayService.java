@@ -2,12 +2,19 @@ package com.solvd.schoolschedule.service;
 
 import com.solvd.schoolschedule.model.*;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 
+/**
+ * Service for display info about timetables and schedules
+ */
 public class DisplayService {
 
+    /**
+     * Displays on console a summary of the timetable
+     *
+     * @param timetable timetable
+     * @param populationService populationService
+     */
     public static void timetableSummary(Timetable timetable, PopulationService populationService) {
         System.out.println("\n=== TIMETABLE SUMMARY ===");
 
@@ -21,6 +28,12 @@ public class DisplayService {
         }
     }
 
+    /**
+     * Displays on console the weekly schedule of a specific group
+     *
+     * @param timetable timetable
+     * @param group group
+     */
     public static void groupSchedule(Timetable timetable, Group group) {
         System.out.println("\nGroup: " + group.getName());
         int max = maxNumberOfDayLessons(timetable, group);
@@ -38,6 +51,12 @@ public class DisplayService {
         }
     }
 
+    /**
+     * Displays on console the weekly schedule of a specific teacher
+     *
+     * @param timetable timetable
+     * @param teacher teacher
+     */
     public static void teacherSchedule(Timetable timetable, Teacher teacher) {
         String subjectName = teacher.getSubject().getDisplayName();
         System.out.println("\n" + teacher.getName() + " (" + subjectName + " - " + abbreviate(subjectName) + "):");
@@ -56,32 +75,60 @@ public class DisplayService {
         }
     }
 
+    /**
+     * Fills the String of each day with spaces, so every day has the same length
+     *
+     * @param day day as an integer (0 Mon - 4 Fri)
+     * @return formatedString
+     */
     private static String formatedDay(int day) {
         String dayString = SchoolConfig.DAY_NAMES[day];
         String spaceString = " ".repeat(11 - dayString.length());
         return dayString + ":" + spaceString;
     }
 
+    /**
+     * For the group, calculates the number of lessons for each day, and returns the max number.
+     *
+     * @param timetable timetable
+     * @param group group
+     * @return max
+     */
     private static int maxNumberOfDayLessons(Timetable timetable, Group group) {
         int max = 0;
         for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
             List<Lesson> dayLessons = timetable.getLessonsForGroupOnDay(group, day);
             int number = dayLessons.size();
-            max = (number > max) ? number : max;
+            max = Math.max(number,max);
         }
         return max;
     }
 
+    /**
+     * For the teacher, calculates the number of lessons for each day, and returns the max number.
+     *
+     * @param timetable timetable
+     * @param teacher teacher
+     * @return max
+     */
     private static int maxNumberOfDayLessons(Timetable timetable, Teacher teacher) {
         int max = 0;
         for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
             List<Lesson> dayLessons = timetable.getLessonsForTeacherOnDay(teacher, day);
             int number = dayLessons.size();
-            max = (number > max) ? number : max;
+            max = Math.max(number,max);
         }
         return max;
     }
 
+    /**
+     * Abbreviates the string into a string of length 4.
+     * If it's one word, takes the first 4 characters.
+     * If it's more than one word, takes the first character of the first word, and 3 characters of the second word.
+     *
+     * @param string string
+     * @return abbreviation
+     */
     public static String abbreviate(String string) {
         if (!string.contains(" ")) {
             return string.substring(0, 4);
