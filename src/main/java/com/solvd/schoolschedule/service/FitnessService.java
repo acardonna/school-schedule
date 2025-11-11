@@ -21,15 +21,15 @@ public class FitnessService {
      * @return fitness score
      */
     public double calculateFitness(Timetable timetable) {
-        double fitness = 2000.0; // Base fitness
+        double fitness = 2000.0; // Base fitness (increased for more evolution room)
 
-        // Prioritize teacher lesson limits - make this the dominant constraint
-        fitness -= calculateRoomConflicts(timetable) * 5;            // Room conflicts (reduced)
-        fitness -= calculateGroupGaps(timetable) * 10;               // Group gaps (reduced)
-        fitness -= calculateTeacherGaps(timetable) * 10;             // Teacher gaps (reduced)
-        fitness -= calculateMaxLessonsPerDayViolations(timetable) * 5; // Max 6 lessons/day (reduced)
-        fitness -= calculateTeacherLessonLimitViolations(timetable) * 300; // 2-3 lessons/day - PRIORITY CONSTRAINT
-        fitness -= calculateInvalidAssignments(timetable) * 20;      // Invalid assignments (reduced)
+        // Penalize constraint violations with balanced enforcement of rules
+        fitness -= calculateRoomConflicts(timetable) * 30;           // Room conflicts
+        fitness -= calculateGroupGaps(timetable) * 50;               // Group gaps (no gaps rule)
+        fitness -= calculateTeacherGaps(timetable) * 50;             // Teacher gaps (no gaps rule)
+        fitness -= calculateMaxLessonsPerDayViolations(timetable) * 40; // Max 6 lessons/day
+        fitness -= calculateTeacherLessonLimitViolations(timetable) * 80; // 2-3 lessons/day limit
+        fitness -= calculateInvalidAssignments(timetable) * 100;     // Invalid assignments
 
         return Math.max(0, fitness); // Ensure non-negative fitness
     }
