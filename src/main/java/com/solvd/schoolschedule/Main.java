@@ -2,6 +2,7 @@ package com.solvd.schoolschedule;
 
 import com.solvd.schoolschedule.model.*;
 import com.solvd.schoolschedule.service.*;
+
 import java.util.List;
 
 public class Main {
@@ -23,6 +24,9 @@ public class Main {
                 .max((t1, t2) -> Double.compare(t1.getFitness(), t2.getFitness()))
                 .orElseThrow();
         System.out.println("Generation 0 - Best Fitness: " + bestTimetable.getFitness());
+
+        //Display initial timetable
+        //DisplayService.timetableSummary(bestTimetable, populationService);
 
         // Run genetic algorithm for specified generations
         for (int generation = 1; generation <= SchoolConfig.GA_MAX_GENERATIONS; generation++) {
@@ -50,6 +54,7 @@ public class Main {
 
         // Display timetable summary
         DisplayService.timetableSummary(bestTimetable, populationService);
+
     }
 
 

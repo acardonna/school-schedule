@@ -17,9 +17,12 @@ public class DisplayService {
      */
     public static void timetableSummary(Timetable timetable, PopulationService populationService) {
         System.out.println("\n=== TIMETABLE SUMMARY ===");
+       // FitnessService fitnessService =new FitnessService(populationService);
 
         for (Group group : populationService.getGroups()) {
             DisplayService.groupSchedule(timetable, group);
+            //System.out.println("Adjustment:"+fitnessService.calculateGroupAdjustment(timetable.getLessonsForGroup(group)));
+            //print adjusment for each group
         }
 
         System.out.println("\n=== TEACHER SCHEDULES ===");
