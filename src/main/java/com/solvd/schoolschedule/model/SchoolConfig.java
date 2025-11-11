@@ -59,13 +59,13 @@ public class SchoolConfig {
      * Mutation rate (probability of mutation occurring)
      * Higher rate = more exploration but less stability
      */
-    public static final double GA_MUTATION_RATE = 0.02;
+    public static final double GA_MUTATION_RATE = 0.05;
 
     /**
      * Tournament size for selection
      * Larger tournament = stronger selection pressure
      */
-    public static final int GA_TOURNAMENT_SIZE = 3;
+    public static final int GA_TOURNAMENT_SIZE = 5;
 
     // ========== Display Configuration ==========
 

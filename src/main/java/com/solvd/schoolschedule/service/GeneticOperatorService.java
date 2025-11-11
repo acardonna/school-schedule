@@ -150,9 +150,53 @@ public class GeneticOperatorService {
             // Mutation
             offspring = mutate(offspring);
 
+            // Repair obvious constraint violations
+            offspring = repairConstraints(offspring);
+
             newGeneration.add(offspring);
         }
 
         return newGeneration;
+    }
+
+    /**
+     * Repair obvious constraint violations in a timetable
+     * @param timetable the timetable to repair
+     * @return repaired timetable
+     */
+    private Timetable repairConstraints(Timetable timetable) {
+        List<Lesson> lessons = new ArrayList<>(timetable.getLessons());
+        boolean repaired = false;
+
+        // Fix teacher lesson count violations (keep only 2-3 lessons per day per teacher)
+        Map<Teacher, Map<Integer, List<Lesson>>> teacherDayLessons = new HashMap<>();
+        for (Lesson lesson : lessons) {
+            teacherDayLessons.computeIfAbsent(lesson.getTeacher(), k -> new HashMap<>())
+                    .computeIfAbsent(lesson.getTimeSlot().getDay(), k -> new ArrayList<>())
+                    .add(lesson);
+        }
+
+        List<Lesson> repairedLessons = new ArrayList<>();
+        for (Lesson lesson : lessons) {
+            Teacher teacher = lesson.getTeacher();
+            int day = lesson.getTimeSlot().getDay();
+            List<Lesson> dayLessons = teacherDayLessons.get(teacher).get(day);
+
+            // If teacher has more than 3 lessons this day, skip excess lessons
+            if (dayLessons.size() > 3) {
+                // Keep only the first 3 lessons for this teacher-day
+                if (dayLessons.indexOf(lesson) >= 3) {
+                    repaired = true;
+                    continue; // Skip this lesson
+                }
+            }
+            repairedLessons.add(lesson);
+        }
+
+        if (repaired) {
+            return new Timetable(repairedLessons);
+        } else {
+            return timetable;
+        }
     }
 }
