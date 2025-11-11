@@ -49,35 +49,8 @@ public class Main {
         System.out.println("Total Lessons: " + bestTimetable.getLessons().size());
 
         // Display timetable summary
-        displayTimetableSummary(bestTimetable, populationService);
+        DisplayService.timetableSummary(bestTimetable, populationService);
     }
 
-    private static void displayTimetableSummary(Timetable timetable, PopulationService populationService) {
-        System.out.println("\n=== TIMETABLE SUMMARY ===");
 
-        for (Group group : populationService.getGroups()) {
-            System.out.println("\nGroup: " + group.getName());
-            for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-                List<Lesson> dayLessons = timetable.getLessonsForGroupOnDay(group, day);
-                if (!dayLessons.isEmpty()) {
-                    System.out.print("  " + SchoolConfig.DAY_NAMES[day] + ": ");
-                    for (Lesson lesson : dayLessons) {
-                        System.out.print(lesson.getSubject().getDisplayName().charAt(0) + " ");
-                    }
-                    System.out.println("(" + dayLessons.size() + " lessons)");
-                }
-            }
-        }
-
-        System.out.println("\n=== TEACHER SCHEDULES ===");
-        for (Teacher teacher : populationService.getTeachers()) {
-            System.out.println("\n" + teacher.getName() + " (" + teacher.getSubject().getDisplayName() + "):");
-            for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-                List<Lesson> dayLessons = timetable.getLessonsForTeacherOnDay(teacher, day);
-                if (!dayLessons.isEmpty()) {
-                    System.out.println("  " + SchoolConfig.DAY_NAMES[day] + ": " + dayLessons.size() + " lessons");
-                }
-            }
-        }
-    }
 }
