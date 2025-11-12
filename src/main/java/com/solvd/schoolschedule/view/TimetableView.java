@@ -1,6 +1,7 @@
 package com.solvd.schoolschedule.view;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -184,7 +185,7 @@ public class TimetableView {
         int max = 0;
 
         for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-            List<Lesson> dayLessons = timetable.getLessonsForGroupOnDay(group, day);
+            List<Lesson> dayLessons = timetable.getLessonsOnDay(group, day);
             int number = dayLessons.size();
             int periodOfFirstLesson = dayLessons.isEmpty()? 0 : dayLessons.getFirst().getTimeSlot().getPeriod();
             max = Math.max(number+periodOfFirstLesson, max);
@@ -210,38 +211,6 @@ public class TimetableView {
         return max;
     }
 
-    /**
-     * Returns the lesson list of a day for a (Group, Teacher or Classroom).
-     *
-     * @param timetable timetable
-     * @param object (Group, Teacher or Classroom)
-     * @return dayLessons
-     */
-    private  List<Lesson> dayLessonsFor(Timetable timetable,Object object, int day) {
-        List<Lesson> dayLessons =new ArrayList<>();
-        return timetable.getLessons().stream()
-                .filter(lesson -> {
-                    // Filtro 2: Si es un Group
-                    if (object instanceof Group) {
-                        return lesson.getGroup().equals(object);
-                    }
-
-                    // Filtro 1: Si es un Teacher
-                    if (object instanceof Teacher) {
-                        // Usamos equals() para comparar el objeto Teacher de la lección con el target
-                        return lesson.getTeacher().equals(object);
-                    }
-
-                    // Filtro 3: Si es un Classroom
-                    if (object instanceof Classroom) {
-                        return lesson.getClassroom().equals(object);
-                    }
-
-                    // Si el objeto no es ninguno de los esperados, no retorna ninguna lección
-                    return false;
-                })
-                .collect(Collectors.toList()); // Recolecta los resultados filtrados en una nueva lista
-    }
 
     /**
      * Abbreviates the string into a string of length 4.

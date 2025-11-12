@@ -1,12 +1,13 @@
 package com.solvd.schoolschedule.model;
 
+import java.util.List;
 import java.util.Set;
 
 /**
  * Represents a classroom in the school.
  * Each classroom has a name and a set of allowed subjects.
  */
-public class Classroom {
+public class Classroom implements ITimetableFilter {
     private final int id;
     private final String name;
     private final Set<Subject> allowedSubjects;
@@ -44,5 +45,10 @@ public class Classroom {
         if (o == null || getClass() != o.getClass()) return false;
         Classroom classroom = (Classroom) o;
         return id == classroom.id;
+    }
+
+    @Override
+    public List<Lesson> filter(Timetable timetable){
+        return timetable.getLessonsForClassroom(this);
     }
 }
