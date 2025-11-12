@@ -23,8 +23,8 @@ public class DisplayServiceImpl implements IDisplayService {
      */
     @Override
     public void displayTimetableSummary(Timetable timetable, IPopulationService populationService) {
-        timetableView.displayTimetableSummaryHeader();
 
+        timetableView.displayTimetableSummaryHeader();
         for (Group group : populationService.getGroups()) {
             timetableView.displayGroupSchedule(timetable, group);
         }
@@ -33,6 +33,12 @@ public class DisplayServiceImpl implements IDisplayService {
         for (Teacher teacher : populationService.getTeachers()) {
             timetableView.displayTeacherSchedule(timetable, teacher);
         }
+
+        timetableView.displayClassroomSchedulesHeader();
+        for (Classroom classroom : populationService.getClassrooms()) {
+            timetableView.displayClassroomSchedule(timetable, classroom);
+        }
+
     }
 
     /**
