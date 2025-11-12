@@ -1,18 +1,20 @@
-package com.solvd.schoolschedule.service;
+package com.solvd.schoolschedule.service.impl;
 
-import com.solvd.schoolschedule.model.Timetable;
 import java.util.*;
+
+import com.solvd.schoolschedule.model.*;
+import com.solvd.schoolschedule.service.interfaces.*;
 
 /**
  * Service for selecting parent timetables for reproduction.
  * Uses tournament selection.
  */
-public class SelectionService {
+public class SelectionServiceImpl implements ISelectionService {
 
     private final Random random;
     private final int tournamentSize;
 
-    public SelectionService(int tournamentSize) {
+    public SelectionServiceImpl(int tournamentSize) {
         this.random = new Random();
         this.tournamentSize = tournamentSize;
     }
@@ -22,6 +24,7 @@ public class SelectionService {
      * @param population the population to select from
      * @return the selected timetable
      */
+    @Override
     public Timetable selectParent(List<Timetable> population) {
         List<Timetable> tournament = new ArrayList<>();
 
@@ -42,6 +45,7 @@ public class SelectionService {
      * @param population the population to select from
      * @return array of two parent timetables
      */
+    @Override
     public Timetable[] selectParents(List<Timetable> population) {
         Timetable parent1 = selectParent(population);
         Timetable parent2 = selectParent(population);
@@ -60,6 +64,7 @@ public class SelectionService {
      * @param numberOfParents number of parents to select
      * @return list of selected parents
      */
+    @Override
     public List<Timetable> selectParents(List<Timetable> population, int numberOfParents) {
         List<Timetable> parents = new ArrayList<>();
         for (int i = 0; i < numberOfParents; i++) {
