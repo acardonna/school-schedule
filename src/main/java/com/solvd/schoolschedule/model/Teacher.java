@@ -30,4 +30,12 @@ public class Teacher {
     public String toString() {
         return name + " (" + subject.getDisplayName() + ")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Teacher teacher = (Teacher) o;
+        return id == teacher.id;
+    }
 }
