@@ -1,18 +1,20 @@
-package com.solvd.schoolschedule.service;
+package com.solvd.schoolschedule.service.impl;
+
+import java.util.*;
 
 import com.solvd.schoolschedule.model.*;
-import java.util.*;
+import com.solvd.schoolschedule.service.interfaces.*;
 
 /**
  * Service for genetic operators: crossover and mutation.
  */
-public class GeneticOperatorService {
+public class GeneticOperatorServiceImpl implements IGeneticOperatorService {
 
-    private final PopulationService populationService;
+    private final IPopulationService populationService;
     private final Random random;
     private final double mutationRate;
 
-    public GeneticOperatorService(PopulationService populationService, double mutationRate) {
+    public GeneticOperatorServiceImpl(IPopulationService populationService, double mutationRate) {
         this.populationService = populationService;
         this.random = new Random();
         this.mutationRate = mutationRate;
@@ -24,6 +26,7 @@ public class GeneticOperatorService {
      * @param parent2 second parent
      * @return offspring timetable
      */
+    @Override
     public Timetable crossover(Timetable parent1, Timetable parent2) {
         List<Lesson> offspringLessons = new ArrayList<>();
 
@@ -46,6 +49,7 @@ public class GeneticOperatorService {
      * @param timetable the timetable to mutate
      * @return mutated timetable (or original if no mutation)
      */
+    @Override
     public Timetable mutate(Timetable timetable) {
         List<Lesson> lessons = new ArrayList<>(timetable.getLessons());
         boolean mutated = false;
@@ -130,7 +134,8 @@ public class GeneticOperatorService {
      * @param selectionService selection service
      * @return new generation
      */
-    public List<Timetable> createNewGeneration(List<Timetable> population, SelectionService selectionService) {
+    @Override
+    public List<Timetable> createNewGeneration(List<Timetable> population, ISelectionService selectionService) {
         List<Timetable> newGeneration = new ArrayList<>();
 
         // Elitism: keep the best individual

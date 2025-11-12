@@ -1,13 +1,14 @@
-package com.solvd.schoolschedule.service;
-
-import com.solvd.schoolschedule.model.*;
+package com.solvd.schoolschedule.service.impl;
 
 import java.util.List;
+
+import com.solvd.schoolschedule.model.*;
+import com.solvd.schoolschedule.service.interfaces.*;
 
 /**
  * Service for display info about timetables and schedules
  */
-public class DisplayService {
+public class DisplayServiceImpl implements IDisplayService {
 
     /**
      * Displays on console a summary of the timetable
@@ -15,19 +16,20 @@ public class DisplayService {
      * @param timetable timetable
      * @param populationService populationService
      */
-    public static void timetableSummary(Timetable timetable, PopulationService populationService) {
+    @Override
+    public void timetableSummary(Timetable timetable, IPopulationService populationService) {
         System.out.println("\n=== TIMETABLE SUMMARY ===");
        // FitnessService fitnessService =new FitnessService(populationService);
 
         for (Group group : populationService.getGroups()) {
-            DisplayService.groupSchedule(timetable, group);
+            this.groupSchedule(timetable, group);
             //System.out.println("Adjustment:"+fitnessService.calculateGroupAdjustment(timetable.getLessonsForGroup(group)));
             //print adjusment for each group
         }
 
         System.out.println("\n=== TEACHER SCHEDULES ===");
         for (Teacher teacher : populationService.getTeachers()) {
-            DisplayService.teacherSchedule(timetable, teacher);
+            this.teacherSchedule(timetable, teacher);
         }
     }
 
@@ -37,7 +39,8 @@ public class DisplayService {
      * @param timetable timetable
      * @param group group
      */
-    public static void groupSchedule(Timetable timetable, Group group) {
+    @Override
+    public void groupSchedule(Timetable timetable, Group group) {
         System.out.println("\nGroup: " + group.getName());
         int max = maxNumberOfDayLessons(timetable, group);
         for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
@@ -60,7 +63,8 @@ public class DisplayService {
      * @param timetable timetable
      * @param teacher teacher
      */
-    public static void teacherSchedule(Timetable timetable, Teacher teacher) {
+    @Override
+    public void teacherSchedule(Timetable timetable, Teacher teacher) {
         String subjectName = teacher.getSubject().getDisplayName();
         System.out.println("\n" + teacher.getName() + " (" + subjectName + " - " + abbreviate(subjectName) + "):");
         int max = maxNumberOfDayLessons(timetable, teacher);
@@ -84,7 +88,7 @@ public class DisplayService {
      * @param day day as an integer (0 Mon - 4 Fri)
      * @return formatedString
      */
-    private static String formatedDay(int day) {
+    private String formatedDay(int day) {
         String dayString = SchoolConfig.DAY_NAMES[day];
         String spaceString = " ".repeat(11 - dayString.length());
         return dayString + ":" + spaceString;
@@ -97,7 +101,7 @@ public class DisplayService {
      * @param group group
      * @return max
      */
-    private static int maxNumberOfDayLessons(Timetable timetable, Group group) {
+    private int maxNumberOfDayLessons(Timetable timetable, Group group) {
         int max = 0;
         for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
             List<Lesson> dayLessons = timetable.getLessonsForGroupOnDay(group, day);
@@ -114,7 +118,7 @@ public class DisplayService {
      * @param teacher teacher
      * @return max
      */
-    private static int maxNumberOfDayLessons(Timetable timetable, Teacher teacher) {
+    private int maxNumberOfDayLessons(Timetable timetable, Teacher teacher) {
         int max = 0;
         for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
             List<Lesson> dayLessons = timetable.getLessonsForTeacherOnDay(teacher, day);
@@ -132,7 +136,8 @@ public class DisplayService {
      * @param string string
      * @return abbreviation
      */
-    public static String abbreviate(String string) {
+    @Override
+    public String abbreviate(String string) {
         if (!string.contains(" ")) {
             return string.substring(0, 4);
         } else {

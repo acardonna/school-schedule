@@ -1,17 +1,20 @@
 package com.solvd.schoolschedule;
 
-import com.solvd.schoolschedule.model.*;
-import com.solvd.schoolschedule.service.*;
-
 import java.util.List;
+
+import com.solvd.schoolschedule.model.SchoolConfig;
+import com.solvd.schoolschedule.model.Timetable;
+import com.solvd.schoolschedule.service.impl.*;
+import com.solvd.schoolschedule.service.interfaces.*;
 
 public class Main {
     public static void main(String[] args) {
         // Initialize services
-        PopulationService populationService = new PopulationService();
-        FitnessService fitnessService = new FitnessService(populationService);
-        SelectionService selectionService = new SelectionService(SchoolConfig.GA_TOURNAMENT_SIZE);
-        GeneticOperatorService geneticOperatorService = new GeneticOperatorService(populationService, SchoolConfig.GA_MUTATION_RATE);
+        IPopulationService populationService = new PopulationServiceImpl();
+        IFitnessService fitnessService = new FitnessServiceImpl(populationService);
+        ISelectionService selectionService = new SelectionServiceImpl(SchoolConfig.GA_TOURNAMENT_SIZE);
+        IGeneticOperatorService geneticOperatorService = new GeneticOperatorServiceImpl(populationService, SchoolConfig.GA_MUTATION_RATE);
+        IDisplayService displayService = new DisplayServiceImpl();
 
         // Initialize population
         List<Timetable> population = populationService.initializePopulation(SchoolConfig.GA_POPULATION_SIZE);
@@ -53,7 +56,7 @@ public class Main {
         System.out.println("Total Lessons: " + bestTimetable.getLessons().size());
 
         // Display timetable summary
-        DisplayService.timetableSummary(bestTimetable, populationService);
+        displayService.timetableSummary(bestTimetable, populationService);
 
     }
 

@@ -1,17 +1,19 @@
-package com.solvd.schoolschedule.service;
+package com.solvd.schoolschedule.service.impl;
 
-import com.solvd.schoolschedule.model.*;
 import java.util.*;
 import java.util.stream.IntStream;
+
+import com.solvd.schoolschedule.model.*;
+import com.solvd.schoolschedule.service.interfaces.*;
 
 /**
  * Service for evaluating timetable fitness based on scheduling constraints.
  */
-public class FitnessService {
+public class FitnessServiceImpl implements IFitnessService {
 
-    private final PopulationService populationService;
+    private final IPopulationService populationService;
 
-    public FitnessService(PopulationService populationService) {
+    public FitnessServiceImpl(IPopulationService populationService) {
         this.populationService = populationService;
     }
 
@@ -21,6 +23,7 @@ public class FitnessService {
      * @param timetable the timetable to evaluate
      * @return fitness score
      */
+    @Override
     public double calculateFitness(Timetable timetable) {
         double fitness = 2000.0; // Base fitness (increased for more evolution room)
 
@@ -194,6 +197,7 @@ public class FitnessService {
      * Evaluate the entire population and set fitness for each timetable
      * @param population the population to evaluate
      */
+    @Override
     public void evaluatePopulation(List<Timetable> population) {
         for (Timetable timetable : population) {
             double fitness = calculateFitness(timetable);
@@ -330,6 +334,7 @@ public class FitnessService {
      * @param lessons list of lessons for the group
      * @return needed number of lessons to be added
      */
+    @Override
     public int calculateGroupAdjustment(List<Lesson> lessons) {
 
         int violations = 0;

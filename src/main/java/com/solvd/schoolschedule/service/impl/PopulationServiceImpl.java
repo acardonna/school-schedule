@@ -1,20 +1,22 @@
-package com.solvd.schoolschedule.service;
+package com.solvd.schoolschedule.service.impl;
+
+import java.util.*;
 
 import com.solvd.schoolschedule.model.*;
-import java.util.*;
+import com.solvd.schoolschedule.service.interfaces.*;
 
 /**
  * Service for managing genetic algorithm populations.
  * Handles initialization and population operations.
  */
-public class PopulationService {
+public class PopulationServiceImpl implements IPopulationService {
 
     private final List<Teacher> teachers;
     private final List<Classroom> classrooms;
     private final List<Group> groups;
     private final Random random;
 
-    public PopulationService() {
+    public PopulationServiceImpl() {
         this.teachers = initializeTeachers();
         this.classrooms = initializeClassrooms();
         this.groups = initializeGroups();
@@ -26,6 +28,7 @@ public class PopulationService {
      * @param populationSize the size of the population
      * @return list of timetables
      */
+    @Override
     public List<Timetable> initializePopulation(int populationSize) {
         List<Timetable> population = new ArrayList<>();
         for (int i = 0; i < populationSize; i++) {
@@ -159,6 +162,7 @@ public class PopulationService {
      * Get all teachers
      * @return list of teachers
      */
+    @Override
     public List<Teacher> getTeachers() {
         return teachers;
     }
@@ -167,6 +171,7 @@ public class PopulationService {
      * Get all classrooms
      * @return list of classrooms
      */
+    @Override
     public List<Classroom> getClassrooms() {
         return classrooms;
     }
@@ -175,6 +180,7 @@ public class PopulationService {
      * Get all groups
      * @return list of groups
      */
+    @Override
     public List<Group> getGroups() {
         return groups;
     }
