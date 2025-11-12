@@ -1,43 +1,32 @@
 package com.solvd.schoolschedule.service.interfaces;
 
-import com.solvd.schoolschedule.model.*;
+import com.solvd.schoolschedule.model.Timetable;
 
 /**
- * Interface for display services that handle console output of timetables
+ * Interface for display services that handle all console output
  */
 public interface IDisplayService {
 
     /**
-     * Displays on console a summary of the timetable
+     * Displays on console a complete summary of the timetable
      *
      * @param timetable timetable
      * @param populationService populationService
      */
-    void timetableSummary(Timetable timetable, IPopulationService populationService);
+    void displayTimetableSummary(Timetable timetable, IPopulationService populationService);
 
     /**
-     * Displays on console the weekly schedule of a specific group
+     * Displays the progress of a generation in the genetic algorithm
      *
-     * @param timetable timetable
-     * @param group group
+     * @param generation generation number
+     * @param fitness best fitness value
      */
-    void groupSchedule(Timetable timetable, Group group);
+    void displayGenerationProgress(int generation, double fitness);
 
     /**
-     * Displays on console the weekly schedule of a specific teacher
+     * Displays the final results of the genetic algorithm
      *
-     * @param timetable timetable
-     * @param teacher teacher
+     * @param timetable the final best timetable
      */
-    void teacherSchedule(Timetable timetable, Teacher teacher);
-
-    /**
-     * Abbreviates the string into a string of length 4.
-     * If it's one word, takes the first 4 characters.
-     * If it's more than one word, takes the first character of the first word, and 3 characters of the second word.
-     *
-     * @param string string
-     * @return abbreviation
-     */
-    String abbreviate(String string);
+    void displayFinalResults(Timetable timetable);
 }

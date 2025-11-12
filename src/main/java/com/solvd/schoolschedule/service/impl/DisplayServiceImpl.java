@@ -1,151 +1,60 @@
 package com.solvd.schoolschedule.service.impl;
 
-import java.util.List;
-
 import com.solvd.schoolschedule.model.*;
 import com.solvd.schoolschedule.service.interfaces.*;
+import com.solvd.schoolschedule.view.TimetableView;
 
 /**
- * Service for display info about timetables and schedules
+ * Service for displaying all console output
  */
 public class DisplayServiceImpl implements IDisplayService {
 
+    private final TimetableView timetableView;
+
+    public DisplayServiceImpl() {
+        this.timetableView = new TimetableView();
+    }
+
     /**
-     * Displays on console a summary of the timetable
+     * Displays on console a complete summary of the timetable
      *
      * @param timetable timetable
      * @param populationService populationService
      */
     @Override
-    public void timetableSummary(Timetable timetable, IPopulationService populationService) {
-        System.out.println("\n=== TIMETABLE SUMMARY ===");
-       // FitnessService fitnessService =new FitnessService(populationService);
+    public void displayTimetableSummary(Timetable timetable, IPopulationService populationService) {
+        timetableView.displayTimetableSummaryHeader();
 
         for (Group group : populationService.getGroups()) {
-            this.groupSchedule(timetable, group);
-            //System.out.println("Adjustment:"+fitnessService.calculateGroupAdjustment(timetable.getLessonsForGroup(group)));
-            //print adjusment for each group
+            timetableView.displayGroupSchedule(timetable, group);
         }
 
-        System.out.println("\n=== TEACHER SCHEDULES ===");
+        timetableView.displayTeacherSchedulesHeader();
         for (Teacher teacher : populationService.getTeachers()) {
-            this.teacherSchedule(timetable, teacher);
+            timetableView.displayTeacherSchedule(timetable, teacher);
         }
     }
 
     /**
-     * Displays on console the weekly schedule of a specific group
+     * Displays the progress of a generation in the genetic algorithm
      *
-     * @param timetable timetable
-     * @param group group
+     * @param generation generation number
+     * @param fitness best fitness value
      */
     @Override
-    public void groupSchedule(Timetable timetable, Group group) {
-        System.out.println("\nGroup: " + group.getName());
-        int max = maxNumberOfDayLessons(timetable, group);
-        for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-            List<Lesson> dayLessons = timetable.getLessonsForGroupOnDay(group, day);
-            if (!dayLessons.isEmpty()) {
-                System.out.print(formatedDay(day));
-                for (Lesson lesson : dayLessons) {
-                    String name = lesson.getSubject().getDisplayName();
-                    System.out.print(lesson.getTimeSlot().getPeriod() + "." + abbreviate(name) + " ");
-                }
-                String spaceString = " ".repeat((max - dayLessons.size()) * 7);
-                System.out.println(spaceString + "(" + dayLessons.size() + " lessons)");
-            }
-        }
+    public void displayGenerationProgress(int generation, double fitness) {
+        timetableView.displayGenerationProgress(generation, fitness);
     }
 
     /**
-     * Displays on console the weekly schedule of a specific teacher
+     * Displays the final results of the genetic algorithm
      *
-     * @param timetable timetable
-     * @param teacher teacher
+     * @param timetable the final best timetable
      */
     @Override
-    public void teacherSchedule(Timetable timetable, Teacher teacher) {
-        String subjectName = teacher.getSubject().getDisplayName();
-        System.out.println("\n" + teacher.getName() + " (" + subjectName + " - " + abbreviate(subjectName) + "):");
-        int max = maxNumberOfDayLessons(timetable, teacher);
-        for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-            List<Lesson> dayLessons = timetable.getLessonsForTeacherOnDay(teacher, day);
-            if (!dayLessons.isEmpty()) {
-                System.out.print(formatedDay(day));
-                for (Lesson lesson : dayLessons) {
-                    String name = "Gr" + lesson.getGroup().getId();
-                    System.out.print(lesson.getTimeSlot().getPeriod() + "." + name + " ");
-                }
-                String spaceString = " ".repeat((max - dayLessons.size()) * 6);
-                System.out.println(spaceString + "(" + dayLessons.size() + " lessons)");
-            }
-        }
+    public void displayFinalResults(Timetable timetable) {
+        timetableView.displayFinalResultsHeader();
+        timetableView.displayBestFitness(timetable.getFitness());
+        timetableView.displayTotalLessons(timetable.getLessons().size());
     }
-
-    /**
-     * Fills the String of each day with spaces, so every day has the same length
-     *
-     * @param day day as an integer (0 Mon - 4 Fri)
-     * @return formatedString
-     */
-    private String formatedDay(int day) {
-        String dayString = SchoolConfig.DAY_NAMES[day];
-        String spaceString = " ".repeat(11 - dayString.length());
-        return dayString + ":" + spaceString;
-    }
-
-    /**
-     * For the group, calculates the number of lessons for each day, and returns the max number.
-     *
-     * @param timetable timetable
-     * @param group group
-     * @return max
-     */
-    private int maxNumberOfDayLessons(Timetable timetable, Group group) {
-        int max = 0;
-        for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-            List<Lesson> dayLessons = timetable.getLessonsForGroupOnDay(group, day);
-            int number = dayLessons.size();
-            max = Math.max(number,max);
-        }
-        return max;
-    }
-
-    /**
-     * For the teacher, calculates the number of lessons for each day, and returns the max number.
-     *
-     * @param timetable timetable
-     * @param teacher teacher
-     * @return max
-     */
-    private int maxNumberOfDayLessons(Timetable timetable, Teacher teacher) {
-        int max = 0;
-        for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-            List<Lesson> dayLessons = timetable.getLessonsForTeacherOnDay(teacher, day);
-            int number = dayLessons.size();
-            max = Math.max(number,max);
-        }
-        return max;
-    }
-
-    /**
-     * Abbreviates the string into a string of length 4.
-     * If it's one word, takes the first 4 characters.
-     * If it's more than one word, takes the first character of the first word, and 3 characters of the second word.
-     *
-     * @param string string
-     * @return abbreviation
-     */
-    @Override
-    public String abbreviate(String string) {
-        if (!string.contains(" ")) {
-            return string.substring(0, 4);
-        } else {
-            String[] splitString = string.split(" ");
-            return splitString[0].charAt(0) + splitString[1].substring(0, 3);
-        }
-
-    }
-
-
 }
