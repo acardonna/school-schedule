@@ -1,7 +1,7 @@
 package com.solvd.schoolschedule;
 
-import com.solvd.schoolschedule.service.impl.TimetableGeneratorServiceImpl;
-import com.solvd.schoolschedule.service.interfaces.ITimetableGeneratorService;
+import com.solvd.schoolschedule.service.impl.*;
+import com.solvd.schoolschedule.service.interfaces.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,5 +9,6 @@ public class Main {
         ITimetableGeneratorService timetableGenerator = new TimetableGeneratorServiceImpl();
 
         timetableGenerator.generateAndDisplayTimetable();
+
     }
 }

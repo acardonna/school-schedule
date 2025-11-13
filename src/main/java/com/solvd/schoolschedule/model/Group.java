@@ -1,10 +1,12 @@
 package com.solvd.schoolschedule.model;
 
+import java.util.List;
+
 /**
  * Represents a student group (class) in the school.
  * Each group has its own timetable.
  */
-public class Group {
+public class Group implements ITimetableFilter {
     private final int id;
     private final String name;
     private final int numberOfStudents;
@@ -48,4 +50,10 @@ public class Group {
     public int hashCode() {
         return Integer.hashCode(id);
     }
+
+    @Override
+    public List<Lesson> filter(Timetable timetable){
+        return timetable.getLessonsForGroup(this);
+    }
+
 }
