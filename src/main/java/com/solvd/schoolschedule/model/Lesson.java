@@ -1,5 +1,7 @@
 package com.solvd.schoolschedule.model;
 
+import com.solvd.schoolschedule.model.interfaces.ITimetableFilter;
+
 /**
  * Represents a lesson in the school schedule.
  */
@@ -41,5 +43,15 @@ public class Lesson {
     @Override
     public String toString() {
         return subject.getDisplayName() + " - " + teacher.getName() + " - " + classroom.getName();
+    }
+
+    /**
+     * Returns the ITimetableFilter object (Group, Teacher or Classroom), from the lesson.
+     *
+     * @param object ITimetableFilter object
+     * @return object ITimetableFilter (Group, Teacher or Classroom)
+     */
+    public ITimetableFilter get(ITimetableFilter object) {
+        return object.getFromLesson(this);
     }
 }

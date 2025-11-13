@@ -32,8 +32,8 @@ public class GeneticOperatorServiceImpl implements IGeneticOperatorService {
 
         // For each group, take lessons from one parent or the other
         for (Group group : populationService.getGroups()) {
-            List<Lesson> parent1Lessons = parent1.getLessonsForGroup(group);
-            List<Lesson> parent2Lessons = parent2.getLessonsForGroup(group);
+            List<Lesson> parent1Lessons = parent1.getLessonsFor(group);
+            List<Lesson> parent2Lessons = parent2.getLessonsFor(group);
 
             // Randomly choose which parent's lessons to take for this group
             List<Lesson> selectedLessons = random.nextBoolean() ? parent1Lessons : parent2Lessons;

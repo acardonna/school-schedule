@@ -61,6 +61,8 @@ public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService
         displayService.displayFinalResults(bestTimetable);
 
         displayService.displayTimetableSummary(bestTimetable, populationService);
+
+        displayService.displayFinalResults(bestTimetable);
     }
 
     /**
