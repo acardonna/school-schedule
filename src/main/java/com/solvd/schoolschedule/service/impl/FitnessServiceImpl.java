@@ -76,7 +76,7 @@ public class FitnessServiceImpl implements IFitnessService {
 
         for (Group group : populationService.getGroups()) {
             for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-                List<Lesson> dayLessons = timetable.getLessonsOnDay(group, day);
+                List<Lesson> dayLessons = timetable.getLessonsOnDayFor(group, day);
                 if (!dayLessons.isEmpty()) {
                     totalGaps += calculateGapsInDay(dayLessons);
                 }
@@ -97,7 +97,7 @@ public class FitnessServiceImpl implements IFitnessService {
 
         for (Teacher teacher : populationService.getTeachers()) {
             for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-                List<Lesson> dayLessons = timetable.getLessonsForTeacherOnDay(teacher, day);
+                List<Lesson> dayLessons = timetable.getLessonsOnDayFor(teacher, day);
                 if (!dayLessons.isEmpty()) {
                     totalGaps += calculateGapsInDay(dayLessons);
                 }
@@ -139,7 +139,7 @@ public class FitnessServiceImpl implements IFitnessService {
 
         for (Group group : populationService.getGroups()) {
             for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-                List<Lesson> dayLessons = timetable.getLessonsOnDay(group, day);
+                List<Lesson> dayLessons = timetable.getLessonsOnDayFor(group, day);
                 if (dayLessons.size() > SchoolConfig.MAX_PERIODS_PER_DAY) {
                     violations += dayLessons.size() - SchoolConfig.MAX_PERIODS_PER_DAY;
                 }
@@ -159,7 +159,7 @@ public class FitnessServiceImpl implements IFitnessService {
 
         for (Teacher teacher : populationService.getTeachers()) {
             for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-                List<Lesson> dayLessons = timetable.getLessonsForTeacherOnDay(teacher, day);
+                List<Lesson> dayLessons = timetable.getLessonsOnDayFor(teacher, day);
                 int lessonCount = dayLessons.size();
                 if (lessonCount < 2 || lessonCount > 3) {
                     violations++;
@@ -215,7 +215,7 @@ public class FitnessServiceImpl implements IFitnessService {
 
         for (Group group : populationService.getGroups()) {
             for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-                List<Lesson> dayLessons = timetable.getLessonsOnDay(group, day);
+                List<Lesson> dayLessons = timetable.getLessonsOnDayFor(group, day);
                 if (!dayLessons.isEmpty()) {
                     totalCollisions += calculateCollisionsInDay(dayLessons);
                 }
@@ -235,7 +235,7 @@ public class FitnessServiceImpl implements IFitnessService {
 
         for (Teacher teacher : populationService.getTeachers()) {
             for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-                List<Lesson> dayLessons = timetable.getLessonsForTeacherOnDay(teacher, day);
+                List<Lesson> dayLessons = timetable.getLessonsOnDayFor(teacher, day);
                 if (!dayLessons.isEmpty()) {
                     totalCollisions += calculateCollisionsInDay(dayLessons);
                 }
@@ -281,7 +281,7 @@ public class FitnessServiceImpl implements IFitnessService {
 
         for (Group group : populationService.getGroups()) {
             for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-                List<Lesson> dayLessons = timetable.getLessonsOnDay(group, day);
+                List<Lesson> dayLessons = timetable.getLessonsOnDayFor(group, day);
                 if (!dayLessons.isEmpty()) {
                     totalViolations += calculateLastLessonInDay(dayLessons);
                 }

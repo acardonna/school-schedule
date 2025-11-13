@@ -1,11 +1,11 @@
 package com.solvd.schoolschedule.model;
 
-import java.util.List;
+import com.solvd.schoolschedule.model.interfaces.ITimetableFilter;
 
 /**
  * Represents a teacher in the school schedule.
  */
-public class Teacher implements ITimetableFilter{
+public class Teacher implements ITimetableFilter {
     private final int id;
     private final String name;
     private final Subject subject;
@@ -45,11 +45,11 @@ public class Teacher implements ITimetableFilter{
      * Get the ITimetableFilter object from a lesson.
      * In this case, get teacher.
      *
-     * @param lesson
+     * @param lesson lesson
      * @return teacher
      */
     @Override
-    public ITimetableFilter getFromLesson(Lesson lesson){
+    public ITimetableFilter getFromLesson(Lesson lesson) {
         return lesson.getTeacher();
     }
 }

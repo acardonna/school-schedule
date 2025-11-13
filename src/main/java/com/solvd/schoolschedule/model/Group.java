@@ -1,7 +1,6 @@
 package com.solvd.schoolschedule.model;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.solvd.schoolschedule.model.interfaces.ITimetableFilter;
 
 /**
  * Represents a student group (class) in the school.
@@ -56,11 +55,11 @@ public class Group implements ITimetableFilter {
      * Get the ITimetableFilter object from a lesson.
      * In this case, get group.
      *
-     * @param lesson
+     * @param lesson lesson
      * @return group
      */
     @Override
-    public ITimetableFilter getFromLesson(Lesson lesson){
+    public ITimetableFilter getFromLesson(Lesson lesson) {
         return lesson.getGroup();
     }
 

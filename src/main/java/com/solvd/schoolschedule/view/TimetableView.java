@@ -1,11 +1,9 @@
 package com.solvd.schoolschedule.view;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.solvd.schoolschedule.model.*;
+import com.solvd.schoolschedule.model.interfaces.ITimetableFilter;
 
 /**
  * View class responsible for displaying timetable information to the console
@@ -45,7 +43,7 @@ public class TimetableView {
         int max = Math.max(6, maxNumberOfDayLessons(timetable, group));
 
         for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-            List<Lesson> dayLessons = timetable.getLessonsOnDay(group, day);
+            List<Lesson> dayLessons = timetable.getLessonsOnDayFor(group, day);
             if (!dayLessons.isEmpty()) {
                 System.out.print(formatDay(day));
 
@@ -80,7 +78,7 @@ public class TimetableView {
         int max = Math.max(6, maxNumberOfDayLessons(timetable, teacher));
 
         for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-            List<Lesson> dayLessons = timetable.getLessonsForTeacherOnDay(teacher, day);
+            List<Lesson> dayLessons = timetable.getLessonsOnDayFor(teacher, day);
 
             if (!dayLessons.isEmpty()) {
                 System.out.print(formatDay(day));
@@ -112,7 +110,7 @@ public class TimetableView {
         int max = Math.max(6, maxNumberOfDayLessons(timetable, classroom));
 
         for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-            List<Lesson> dayLessons = timetable.getLessonsOnDay(classroom, day);
+            List<Lesson> dayLessons = timetable.getLessonsOnDayFor(classroom, day);
             if (!dayLessons.isEmpty()) {
                 System.out.print(formatDay(day));
 
@@ -191,7 +189,7 @@ public class TimetableView {
         int max = 0;
 
         for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-            List<Lesson> dayLessons = timetable.getLessonsOnDay(object, day);
+            List<Lesson> dayLessons = timetable.getLessonsOnDayFor(object, day);
             int number = dayLessons.size();
             int periodOfFirstLesson = dayLessons.isEmpty() ? 0 : dayLessons.getFirst().getTimeSlot().getPeriod();
             max = Math.max(number + periodOfFirstLesson, max);

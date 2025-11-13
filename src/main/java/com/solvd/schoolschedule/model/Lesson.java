@@ -1,5 +1,7 @@
 package com.solvd.schoolschedule.model;
 
+import com.solvd.schoolschedule.model.interfaces.ITimetableFilter;
+
 /**
  * Represents a lesson in the school schedule.
  */
@@ -43,7 +45,13 @@ public class Lesson {
         return subject.getDisplayName() + " - " + teacher.getName() + " - " + classroom.getName();
     }
 
-    public ITimetableFilter get(ITimetableFilter object){
+    /**
+     * Returns the ITimetableFilter object (Group, Teacher or Classroom), from the lesson.
+     *
+     * @param object ITimetableFilter object
+     * @return object ITimetableFilter (Group, Teacher or Classroom)
+     */
+    public ITimetableFilter get(ITimetableFilter object) {
         return object.getFromLesson(this);
     }
 }
