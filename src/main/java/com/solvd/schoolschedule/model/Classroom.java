@@ -47,8 +47,15 @@ public class Classroom implements ITimetableFilter {
         return id == classroom.id;
     }
 
+    /**
+     * Get the ITimetableFilter object from a lesson.
+     * In this case, get classroom.
+     *
+     * @param lesson
+     * @return classroom
+     */
     @Override
-    public List<Lesson> filter(Timetable timetable){
-        return timetable.getLessonsForClassroom(this);
+    public ITimetableFilter getFromLesson(Lesson lesson){
+        return lesson.getClassroom();
     }
 }

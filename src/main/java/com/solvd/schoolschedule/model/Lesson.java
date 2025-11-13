@@ -42,4 +42,8 @@ public class Lesson {
     public String toString() {
         return subject.getDisplayName() + " - " + teacher.getName() + " - " + classroom.getName();
     }
+
+    public ITimetableFilter get(ITimetableFilter object){
+        return object.getFromLesson(this);
+    }
 }
