@@ -18,4 +18,5 @@ public interface ITimetableFilter {
                 .filter(lesson -> lesson.get(this).equals(this))
                 .collect(Collectors.toList());
     }
+
 }

@@ -45,7 +45,7 @@ public class TimetableView {
         int max = Math.max(6, maxNumberOfDayLessons(timetable, group));
 
         for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-            List<Lesson> dayLessons = timetable.getLessonsForGroupOnDay(group, day);
+            List<Lesson> dayLessons = timetable.getLessonsOnDay(group, day);
             if (!dayLessons.isEmpty()) {
                 System.out.print(formatDay(day));
 

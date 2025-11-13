@@ -43,38 +43,6 @@ public class Timetable {
     }
 
     /**
-     * Get all lessons for a specific group
-     *
-     * @param group the group to filter by
-     * @return list of lessons for the group
-     */
-    public List<Lesson> getLessonsForGroup(Group group) {
-        return lessons.stream()
-                .filter(lesson -> lesson.getGroup().equals(group))
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Get all lessons for a specific teacher
-     *
-     * @param teacher the teacher to filter by
-     * @return list of lessons for the teacher
-     */
-    public List<Lesson> getLessonsForTeacher(Teacher teacher) {
-        return lessons.stream()
-                .filter(lesson -> lesson.getTeacher().equals(teacher))
-                .collect(Collectors.toList());
-    }
-
-
-    public List<Lesson> getLessonsForClassroom(Classroom classroom) {
-        return lessons.stream()
-                .filter(lesson -> lesson.getClassroom().equals(classroom))
-                .collect(Collectors.toList());
-    }
-
-
-    /**
      * Returns the lesson list of an ITimetableFilter object.
      *
      * @param object (Group, Teacher or Classroom)
@@ -89,18 +57,6 @@ public class Timetable {
                 .filter(lesson -> lesson.getTimeSlot().getDay() == day)
                 .sorted(Comparator.comparingInt(l -> l.getTimeSlot().getPeriod()))
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * Get all lessons for a specific group on a specific day, sorted by period
-     *
-     * @param group the group to filter by
-     * @param day   the day to filter by (0-4)
-     * @return list of lessons for the group on that day, sorted by period
-     */
-    public List<Lesson> getLessonsForGroupOnDay(Group group, int day) {
-        List<Lesson> lessons = this.getLessonsFor(group);
-        return filterByDay(lessons, day);
     }
 
     /**
