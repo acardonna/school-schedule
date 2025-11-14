@@ -1,6 +1,7 @@
 package com.solvd.schoolschedule.service.impl;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.solvd.schoolschedule.model.*;
 import com.solvd.schoolschedule.service.interfaces.*;
@@ -136,10 +137,13 @@ public class PopulationServiceImpl implements IPopulationService {
      */
     private List<Classroom> initializeClassrooms() {
         List<Classroom> classroomList = new ArrayList<>();
+        Set<Subject> usualSubjects= Arrays.stream(Subject.values())
+                .filter(s->!s.equals(Subject.INFORMATICS))
+                .collect(Collectors.toSet());
         // General classrooms
-        classroomList.add(new Classroom(1, "Room 101", Set.of(Subject.values())));
-        classroomList.add(new Classroom(2, "Room 102", Set.of(Subject.values())));
-        classroomList.add(new Classroom(3, "Room 103", Set.of(Subject.values())));
+        classroomList.add(new Classroom(1, "Room 101", usualSubjects));
+        classroomList.add(new Classroom(2, "Room 102", usualSubjects));
+        classroomList.add(new Classroom(3, "Room 103", usualSubjects));
         // Specialized classrooms
         classroomList.add(new Classroom(4, "Physics Lab", Set.of(Subject.PHYSICS)));
         classroomList.add(new Classroom(5, "Computer Lab", Set.of(Subject.INFORMATICS)));
