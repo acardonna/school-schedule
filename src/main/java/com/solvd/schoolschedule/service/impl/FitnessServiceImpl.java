@@ -1,6 +1,7 @@
 package com.solvd.schoolschedule.service.impl;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.solvd.schoolschedule.model.*;
@@ -29,6 +30,7 @@ public class FitnessServiceImpl implements IFitnessService {
 
         // Penalize constraint violations with balanced enforcement of rules
         fitness -= calculateRoomConflicts(timetable) * 30;           // Room conflicts
+        fitness -= calculateRoomAccomodate(timetable) * 50;           // Special Room accommodation for subjects
         fitness -= calculateGroupGaps(timetable) * 50;               // Group gaps (no gaps rule)
         fitness -= calculateTeacherGaps(timetable) * 50;             // Teacher gaps (no gaps rule)
         fitness -= calculateMaxLessonsPerDayViolations(timetable) * 40; // Max 6 lessons/day
@@ -63,6 +65,20 @@ public class FitnessServiceImpl implements IFitnessService {
         }
 
         return conflicts;
+    }
+
+    /**
+     * Count room conflicts (multiple lessons in same room at same time)
+     * @param timetable the timetable
+     * @return number of conflicts
+     */
+    private int calculateRoomAccomodate(Timetable timetable) {
+
+        return (int) timetable.getLessons().stream()
+                .map(lesson -> lesson.getClassroom().canAccommodate(lesson.getSubject()))
+                .filter(p->p==false)
+                .count();
+
     }
 
     /**
@@ -300,14 +316,21 @@ public class FitnessServiceImpl implements IFitnessService {
     private int calculateLastLessonInDay(List<Lesson> dayLessons) {
         if (dayLessons.isEmpty()) return 0;
 
-        boolean hasPhysicalCulture=dayLessons.stream()
-                .map(Lesson::getSubject)
-                .anyMatch(subject -> subject.equals(Subject.PHYSICAL_CULTURE));
+        List<Integer>periods=dayLessons.stream()
+                        .filter(lesson -> lesson.getSubject().equals(Subject.PHYSICAL_CULTURE))
+                        .map(lesson -> lesson.getTimeSlot().getPeriod())
+                        .collect(Collectors.toList());
 
-        if (hasPhysicalCulture && !dayLessons.getLast().getSubject().equals(Subject.PHYSICAL_CULTURE)){
-            return 1;
+        int phyCulGaps=0;
+
+        for(int i=0;i<periods.size()-1;i++){
+            phyCulGaps+=periods.get(i+1)-periods.get(i)-1;
         }
-        return 0;
+        if (!periods.isEmpty()){
+            int lastPeriod=dayLessons.getLast().getTimeSlot().getPeriod();
+            phyCulGaps+=lastPeriod-periods.getLast();
+        }
+        return phyCulGaps;
     }
 
     /**
