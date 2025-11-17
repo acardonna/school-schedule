@@ -2,8 +2,16 @@ package com.solvd.schoolschedule.service.impl;
 
 import java.util.List;
 
-import com.solvd.schoolschedule.model.*;
-import com.solvd.schoolschedule.service.interfaces.*;
+import com.solvd.schoolschedule.dao.impl.TimetableDAOImpl;
+import com.solvd.schoolschedule.dao.interfaces.ITimetableDAO;
+import com.solvd.schoolschedule.model.SchoolConfig;
+import com.solvd.schoolschedule.model.Timetable;
+import com.solvd.schoolschedule.service.interfaces.IDisplayService;
+import com.solvd.schoolschedule.service.interfaces.IFitnessService;
+import com.solvd.schoolschedule.service.interfaces.IGeneticOperatorService;
+import com.solvd.schoolschedule.service.interfaces.IPopulationService;
+import com.solvd.schoolschedule.service.interfaces.ISelectionService;
+import com.solvd.schoolschedule.service.interfaces.ITimetableGeneratorService;
 
 /**
  * Service that orchestrates the timetable generation using genetic algorithm
@@ -15,6 +23,7 @@ public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService
     private final ISelectionService selectionService;
     private final IGeneticOperatorService geneticOperatorService;
     private final IDisplayService displayService;
+    private final ITimetableDAO timetableDAO;
 
     public TimetableGeneratorServiceImpl() {
         // Initialize all required services
@@ -23,6 +32,7 @@ public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService
         this.selectionService = new SelectionServiceImpl(SchoolConfig.GA_TOURNAMENT_SIZE);
         this.geneticOperatorService = new GeneticOperatorServiceImpl(populationService, SchoolConfig.GA_MUTATION_RATE);
         this.displayService = new DisplayServiceImpl();
+        this.timetableDAO = new TimetableDAOImpl();
     }
 
     /**
@@ -63,6 +73,11 @@ public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService
         displayService.displayTimetableSummary(bestTimetable, populationService);
 
         displayService.displayFinalResults(bestTimetable);
+
+        // Save the best timetable to database
+        System.out.println("\n=== Saving timetable to database... ===");
+        timetableDAO.create(bestTimetable);
+        System.out.println("=== Timetable saved successfully!   ===");
     }
 
     /**
