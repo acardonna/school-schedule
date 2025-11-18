@@ -12,8 +12,14 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     <maven.compiler.release>21</maven.compiler.release>
+
     <mysql.connector.version>9.4.0</mysql.connector.version>
+
+    <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
+
+    <log4j.version>2.24.1</log4j.version>
   </properties>
 
   <dependencies>
@@ -22,6 +28,31 @@
       <artifactId>mysql-connector-j</artifactId>
       <version>${mysql.connector.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.compiler.plugin.version}</version>
+        <configuration>
+          <release>${maven.compiler.release}</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

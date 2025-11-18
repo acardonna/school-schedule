@@ -2,6 +2,9 @@ package com.solvd.schoolschedule.view;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.solvd.schoolschedule.model.*;
 import com.solvd.schoolschedule.model.interfaces.ITimetableFilter;
 
@@ -10,25 +13,27 @@ import com.solvd.schoolschedule.model.interfaces.ITimetableFilter;
  */
 public class TimetableView {
 
+    private static final Logger logger = LogManager.getLogger(TimetableView.class);
+
     /**
      * Displays the header for the timetable summary
      */
     public void displayTimetableSummaryHeader() {
-        System.out.println("\n=== TIMETABLE SUMMARY ===");
+        logger.info("=== TIMETABLE SUMMARY ===");
     }
 
     /**
      * Displays the header for teacher schedules section
      */
     public void displayTeacherSchedulesHeader() {
-        System.out.println("\n=== TEACHER SCHEDULES ===");
+        logger.info("=== TEACHER SCHEDULES ===");
     }
 
     /**
      * Displays the header for classroom schedules section
      */
     public void displayClassroomSchedulesHeader() {
-        System.out.println("\n=== CLASSROOM SCHEDULES ===");
+        logger.info("=== CLASSROOM SCHEDULES ===");
     }
 
     /**
@@ -38,28 +43,30 @@ public class TimetableView {
      * @param group     group
      */
     public void displayGroupSchedule(Timetable timetable, Group group) {
-        System.out.println("\nGroup: " + group.getName());
+        logger.info("Group: " + group.getName());
 
         int max = Math.max(6, maxNumberOfDayLessons(timetable, group));
 
         for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
             List<Lesson> dayLessons = timetable.getLessonsOnDayFor(group, day);
             if (!dayLessons.isEmpty()) {
-                System.out.print(formatDay(day));
+                StringBuilder lineBuilder = new StringBuilder();
+                lineBuilder.append(formatDay(day));
 
                 int periodOfFirstLesson = dayLessons.getFirst().getTimeSlot().getPeriod();
                 String spaceStringPrefix = " ".repeat(periodOfFirstLesson * 7);
-                System.out.print(spaceStringPrefix);
+                lineBuilder.append(spaceStringPrefix);
 
                 for (Lesson lesson : dayLessons) {
                     String name = lesson.getSubject().getDisplayName();
-                    System.out.print(lesson.getTimeSlot().getPeriod() + "." + abbreviate(name) + " ");
+                    lineBuilder.append(lesson.getTimeSlot().getPeriod() + "." + abbreviate(name) + " ");
                 }
 
 
                 String spaceStringSufix = " ".repeat((max - periodOfFirstLesson - dayLessons.size()) * 7);
 
-                System.out.println(spaceStringSufix + "(" + dayLessons.size() + " lessons)");
+                lineBuilder.append(spaceStringSufix + "(" + dayLessons.size() + " lessons)");
+                logger.info(lineBuilder.toString());
             }
         }
     }
@@ -73,7 +80,7 @@ public class TimetableView {
     public void displayTeacherSchedule(Timetable timetable, Teacher teacher) {
         String subjectName = teacher.getSubject().getDisplayName();
 
-        System.out.println("\n" + teacher.getName() + " (" + subjectName + " - " + abbreviate(subjectName) + "):");
+        logger.info("" + teacher.getName() + " (" + subjectName + " - " + abbreviate(subjectName) + "):");
 
         int max = Math.max(6, maxNumberOfDayLessons(timetable, teacher));
 
@@ -81,19 +88,21 @@ public class TimetableView {
             List<Lesson> dayLessons = timetable.getLessonsOnDayFor(teacher, day);
 
             if (!dayLessons.isEmpty()) {
-                System.out.print(formatDay(day));
+                StringBuilder lineBuilder = new StringBuilder();
+                lineBuilder.append(formatDay(day));
 
                 int periodOfFirstLesson = dayLessons.getFirst().getTimeSlot().getPeriod();
                 String spaceStringPrefix = " ".repeat(periodOfFirstLesson * 6);
-                System.out.print(spaceStringPrefix);
+                lineBuilder.append(spaceStringPrefix);
 
                 for (Lesson lesson : dayLessons) {
                     String name = "Gr" + lesson.getGroup().getId();
-                    System.out.print(lesson.getTimeSlot().getPeriod() + "." + name + " ");
+                    lineBuilder.append(lesson.getTimeSlot().getPeriod() + "." + name + " ");
                 }
 
                 String spaceStringSufix = " ".repeat((max - periodOfFirstLesson - dayLessons.size()) * 6);
-                System.out.println(spaceStringSufix + "(" + dayLessons.size() + " lessons)");
+                lineBuilder.append(spaceStringSufix + "(" + dayLessons.size() + " lessons)");
+                logger.info(lineBuilder.toString());
             }
         }
     }
@@ -105,28 +114,30 @@ public class TimetableView {
      * @param classroom classroom
      */
     public void displayClassroomSchedule(Timetable timetable, Classroom classroom) {
-        System.out.println("\nClassroom: " + classroom.getName());
+        logger.info("Classroom: " + classroom.getName());
 
         int max = Math.max(6, maxNumberOfDayLessons(timetable, classroom));
 
         for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
             List<Lesson> dayLessons = timetable.getLessonsOnDayFor(classroom, day);
             if (!dayLessons.isEmpty()) {
-                System.out.print(formatDay(day));
+                StringBuilder lineBuilder = new StringBuilder();
+                lineBuilder.append(formatDay(day));
 
                 int periodOfFirstLesson = dayLessons.getFirst().getTimeSlot().getPeriod();
                 String spaceStringPrefix = " ".repeat(periodOfFirstLesson * 11);
-                System.out.print(spaceStringPrefix);
+                lineBuilder.append(spaceStringPrefix);
 
                 for (Lesson lesson : dayLessons) {
                     String subjectString = lesson.getSubject().getDisplayName();
                     String groupString = "Gr" + lesson.getGroup().getId();
-                    System.out.print(lesson.getTimeSlot().getPeriod() + "." + abbreviate(subjectString) + "-" + groupString + " ");
+                    lineBuilder.append(lesson.getTimeSlot().getPeriod() + "." + abbreviate(subjectString) + "-" + groupString + " ");
                 }
 
                 String spaceStringSufix = " ".repeat((max - periodOfFirstLesson - dayLessons.size()) * 11);
 
-                System.out.println(spaceStringSufix + "(" + dayLessons.size() + " lessons)");
+                lineBuilder.append(spaceStringSufix + "(" + dayLessons.size() + " lessons)");
+                logger.info(lineBuilder.toString());
             }
         }
     }
@@ -138,14 +149,14 @@ public class TimetableView {
      * @param fitness    best fitness value
      */
     public void displayGenerationProgress(int generation, double fitness) {
-        System.out.println("Generation " + generation + " - Best Fitness: " + fitness);
+        logger.info("Generation " + generation + " - Best Fitness: " + fitness);
     }
 
     /**
      * Displays the final results header
      */
     public void displayFinalResultsHeader() {
-        System.out.println("\n=== FINAL RESULTS ===");
+        logger.info("=== FINAL RESULTS ===");
     }
 
     /**
@@ -154,7 +165,7 @@ public class TimetableView {
      * @param fitness fitness value
      */
     public void displayBestFitness(double fitness) {
-        System.out.println("Best Fitness: " + fitness);
+        logger.info("Best Fitness: " + fitness);
     }
 
     /**
@@ -163,7 +174,7 @@ public class TimetableView {
      * @param totalLessons total lessons count
      */
     public void displayTotalLessons(int totalLessons) {
-        System.out.println("Total Lessons: " + totalLessons);
+        logger.info("Total Lessons: " + totalLessons);
     }
 
     /**

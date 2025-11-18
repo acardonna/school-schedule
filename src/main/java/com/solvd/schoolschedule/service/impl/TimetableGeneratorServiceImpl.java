@@ -2,6 +2,9 @@ package com.solvd.schoolschedule.service.impl;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.solvd.schoolschedule.dao.impl.TimetableDAOImpl;
 import com.solvd.schoolschedule.dao.interfaces.ITimetableDAO;
 import com.solvd.schoolschedule.model.SchoolConfig;
@@ -17,6 +20,8 @@ import com.solvd.schoolschedule.service.interfaces.ITimetableGeneratorService;
  * Service that orchestrates the timetable generation using genetic algorithm
  */
 public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService {
+
+    private static final Logger logger = LogManager.getLogger(TimetableGeneratorServiceImpl.class);
 
     private final IPopulationService populationService;
     private final IFitnessService fitnessService;
@@ -75,9 +80,9 @@ public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService
         displayService.displayFinalResults(bestTimetable);
 
         // Save the best timetable to database
-        System.out.println("\n=== Saving timetable to database... ===");
+        logger.info("=== Saving timetable to database... ===");
         timetableDAO.create(bestTimetable);
-        System.out.println("=== Timetable saved successfully!   ===");
+        logger.info("=== Timetable saved successfully!   ===");
     }
 
     /**
