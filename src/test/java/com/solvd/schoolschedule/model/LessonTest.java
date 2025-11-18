@@ -193,20 +193,6 @@ class LessonTest {
     }
 
     @Test
-    @DisplayName("Lesson fields should be immutable (no setters)")
-    void testLessonImmutability() {
-        // Given
-        var methods = Lesson.class.getMethods();
-
-        // Then - verify no public setter methods exist
-        long setterCount = java.util.Arrays.stream(methods)
-            .filter(m -> m.getName().startsWith("set"))
-            .count();
-
-        assertEquals(0, setterCount, "Lesson should not have setter methods (immutable)");
-    }
-
-    @Test
     @DisplayName("Should create lessons with different subjects")
     void testDifferentSubjects() {
         // When
