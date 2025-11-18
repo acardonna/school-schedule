@@ -13,15 +13,24 @@ import java.util.stream.Collectors;
 public class Timetable {
     private final List<Lesson> lessons;
     private double fitness;
+    private int generation;
 
     public Timetable() {
         this.lessons = new ArrayList<>();
         this.fitness = 0.0;
+        this.generation=0;
     }
 
     public Timetable(List<Lesson> lessons) {
         this.lessons = new ArrayList<>(lessons);
         this.fitness = 0.0;
+        this.generation=0;
+    }
+
+    public Timetable(List<Lesson> lessons, int generation) {
+        this.lessons = new ArrayList<>(lessons);
+        this.fitness = 0.0;
+        this.generation=generation;
     }
 
     public List<Lesson> getLessons() {
@@ -38,6 +47,14 @@ public class Timetable {
 
     public void setFitness(double fitness) {
         this.fitness = fitness;
+    }
+
+    public int getGeneration() {
+        return generation;
+    }
+
+    public void setGeneration(int generation) {
+        this.generation = generation;
     }
 
     public Timetable copy() {

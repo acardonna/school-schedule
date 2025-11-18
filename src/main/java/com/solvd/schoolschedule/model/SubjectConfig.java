@@ -11,8 +11,8 @@ public class SubjectConfig {
 
     static {
         // Define how many times per week each subject is taught
-        WEEKLY_LESSONS.put(Subject.MATH, 5);              
-        WEEKLY_LESSONS.put(Subject.PHYSICS, 4);          
+        WEEKLY_LESSONS.put(Subject.MATH, 5);
+        WEEKLY_LESSONS.put(Subject.PHYSICS, 4);
         WEEKLY_LESSONS.put(Subject.INFORMATICS, 3);
         WEEKLY_LESSONS.put(Subject.PHYSICAL_CULTURE, 2);
     }

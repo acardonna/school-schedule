@@ -63,4 +63,14 @@ public class DisplayServiceImpl implements IDisplayService {
         timetableView.displayBestFitness(timetable.getFitness());
         timetableView.displayTotalLessons(timetable.getLessons().size());
     }
+
+    /**
+     * Displays a message
+     *
+     * @param string message
+     */
+    @Override
+    public void display(String string) {
+        timetableView.displayMessage(string);
+    }
 }

@@ -13,6 +13,7 @@ public class Lesson {
     private final Group group;
     private boolean conflicted =false;
 
+
     public Lesson(Subject subject, Teacher teacher, Classroom classroom, TimeSlot timeSlot, Group group) {
         this.subject = subject;
         this.teacher = teacher;
