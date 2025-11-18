@@ -9,6 +9,9 @@ import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Thread-safe database connection pool implementation using the Singleton pattern.
  * Manages a pool of reusable database connections to improve performance and resource utilization.
@@ -30,6 +33,7 @@ import java.util.concurrent.BlockingQueue;
  * @see ConnectionPool#releaseConnection(Connection)
  */
 public class ConnectionPool {
+    private static final Logger logger = LogManager.getLogger(ConnectionPool.class);
     private static ConnectionPool instance;
     private final BlockingQueue<Connection> pool;
     private final String url;
@@ -144,7 +148,7 @@ public class ConnectionPool {
                 connection.close();
             } catch (SQLException e) {
                 // Print error but continue closing other connections to ensure cleanup
-                System.err.println("Error closing connection: " + e.getMessage());
+                logger.error("Error closing connection: " + e.getMessage());
             }
         }
         pool.clear();

@@ -2,6 +2,9 @@ package com.solvd.schoolschedule.util;
 
 import java.sql.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Utility class for initializing the database with reference data.
  * Populates the database tables with predefined subjects, student groups, teachers,
@@ -23,6 +26,8 @@ import java.sql.*;
  */
 public class DatabaseInitializer {
 
+    private static final Logger logger = LogManager.getLogger(DatabaseInitializer.class);
+
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     /**
@@ -39,11 +44,11 @@ public class DatabaseInitializer {
      */
     public void populateDatabase() {
         if (isDatabasePopulated()) {
-            System.out.println("=== Database is already populated. Skipping initialization. ===");
+            logger.info("=== Database is already populated. Skipping initialization. ===");
             return;
         }
 
-        System.out.println("=== Populating database with initial data... ===");
+        logger.info("=== Populating database with initial data... ===");
 
         Connection conn = null;
         try {
@@ -63,7 +68,7 @@ public class DatabaseInitializer {
             }
         }
 
-        System.out.println("=== Database populated successfully! ===");
+        logger.info("=== Database populated successfully! ===");
     }
 
     /**
@@ -110,7 +115,7 @@ public class DatabaseInitializer {
      * @throws SQLException if a database error occurs
      */
     private void insertSubjects(Connection conn) throws SQLException {
-        System.out.println("=== Inserting subjects... ===");
+        logger.info("=== Inserting subjects... ===");
         String sql = "INSERT INTO subject (subject_code, display_name, weekly_lessons) VALUES (?, ?, ?)";
 
         String[][] subjects = {
@@ -127,7 +132,7 @@ public class DatabaseInitializer {
             stmt.setInt(3, Integer.parseInt(subject[2]));
             stmt.executeUpdate();
         }
-        System.out.println("=== Inserted " + subjects.length + " subjects" + " ===");
+        logger.info("=== Inserted " + subjects.length + " subjects" + " ===");
     }
 
     /**
@@ -138,7 +143,7 @@ public class DatabaseInitializer {
      * @throws SQLException if a database error occurs
      */
     private void insertStudentGroups(Connection conn) throws SQLException {
-        System.out.println("=== Inserting student groups... ===");
+        logger.info("=== Inserting student groups... ===");
         String sql = "INSERT INTO student_group (name, student_count) VALUES (?, ?)";
 
         String[][] groups = {
@@ -154,7 +159,7 @@ public class DatabaseInitializer {
             stmt.setInt(2, Integer.parseInt(group[1]));
             stmt.executeUpdate();
         }
-        System.out.println("=== Inserted " + groups.length + " student groups" + " ===");
+        logger.info("=== Inserted " + groups.length + " student groups" + " ===");
     }
 
     /**
@@ -173,7 +178,7 @@ public class DatabaseInitializer {
      * @throws SQLException if a database error occurs
      */
     private void insertTeachers(Connection conn) throws SQLException {
-        System.out.println("=== Inserting teachers... ===");
+        logger.info("=== Inserting teachers... ===");
         String sql = "INSERT INTO teacher (name, subject_code) VALUES (?, ?)";
 
         String[][] teachers = {
@@ -189,7 +194,7 @@ public class DatabaseInitializer {
             stmt.setString(2, teacher[1]);
             stmt.executeUpdate();
         }
-        System.out.println("=== Inserted " + teachers.length + " teachers" + " ===");
+        logger.info("=== Inserted " + teachers.length + " teachers" + " ===");
     }
 
     /**
@@ -207,7 +212,7 @@ public class DatabaseInitializer {
      * @throws SQLException if a database error occurs
      */
     private void insertClassrooms(Connection conn) throws SQLException {
-        System.out.println("=== Inserting classrooms... ===");
+        logger.info("=== Inserting classrooms... ===");
         String sql = "INSERT INTO classroom (name, room_type) VALUES (?, ?)";
 
         String[][] classrooms = {
@@ -224,7 +229,7 @@ public class DatabaseInitializer {
             stmt.setString(2, classroom[1]);
             stmt.executeUpdate();
         }
-        System.out.println("=== Inserted " + classrooms.length + " classrooms" + " ===");
+        logger.info("=== Inserted " + classrooms.length + " classrooms" + " ===");
     }
 
     /**
@@ -245,7 +250,7 @@ public class DatabaseInitializer {
      * @throws SQLException if a database error occurs
      */
     private void insertClassroomSubjectCapabilities(Connection conn) throws SQLException {
-        System.out.println("=== Inserting classroom-subject capabilities... ===");
+        logger.info("=== Inserting classroom-subject capabilities... ===");
         String sql = "INSERT INTO classroom_subject_capability (classroom_id, subject_code) VALUES (?, ?)";
 
         int[][] capabilities = {
@@ -264,6 +269,6 @@ public class DatabaseInitializer {
             stmt.setString(2, subjectCodes[capability[1] - 1]);
             stmt.executeUpdate();
         }
-        System.out.println("=== Inserted " + capabilities.length + " classroom-subject capabilities" + " ===");
+        logger.info("=== Inserted " + capabilities.length + " classroom-subject capabilities" + " ===");
     }
 }
