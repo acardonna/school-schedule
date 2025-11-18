@@ -14,6 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>21</maven.compiler.release>
     <mysql.connector.version>9.4.0</mysql.connector.version>
+    <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
   </properties>
 
   <dependencies>
@@ -23,5 +24,18 @@
       <version>${mysql.connector.version}</version>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.compiler.plugin.version}</version>
+        <configuration>
+          <release>${maven.compiler.release}</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
