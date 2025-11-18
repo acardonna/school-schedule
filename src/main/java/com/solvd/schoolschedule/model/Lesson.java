@@ -11,6 +11,7 @@ public class Lesson {
     private final Classroom classroom;
     private final TimeSlot timeSlot;
     private final Group group;
+    private boolean conflicted =false;
 
     public Lesson(Subject subject, Teacher teacher, Classroom classroom, TimeSlot timeSlot, Group group) {
         this.subject = subject;
@@ -38,6 +39,14 @@ public class Lesson {
 
     public Group getGroup() {
         return group;
+    }
+
+    public boolean isConflicted() {
+        return conflicted;
+    }
+
+    public void setConflicted(boolean conflicted) {
+        this.conflicted = conflicted;
     }
 
     @Override

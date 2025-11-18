@@ -60,6 +60,7 @@ public class FitnessServiceImpl implements IFitnessService {
 
             timeSlotRooms.computeIfAbsent(timeSlot, k -> new HashSet<>());
             if (!timeSlotRooms.get(timeSlot).add(classroom)) {
+                setLessonConflicted(lesson,true);
                 conflicts++;
             }
         }
@@ -75,8 +76,8 @@ public class FitnessServiceImpl implements IFitnessService {
     private int calculateRoomAccomodate(Timetable timetable) {
 
         return (int) timetable.getLessons().stream()
-                .map(lesson -> lesson.getClassroom().canAccommodate(lesson.getSubject()))
-                .filter(p->p==false)
+                .filter(lesson ->lesson.getClassroom().canAccommodate(lesson.getSubject())==false )
+                .peek(lesson -> lesson.setConflicted(true))
                 .count();
 
     }
@@ -137,6 +138,8 @@ public class FitnessServiceImpl implements IFitnessService {
         for (Lesson lesson : dayLessons) {
             int currentPeriod = lesson.getTimeSlot().getPeriod();
             if (previousPeriod != -1 && currentPeriod > previousPeriod + 1) {
+                setLessonConflicted(lesson,true);
+                //set conflicted for previous lesson true??
                 gaps += currentPeriod - previousPeriod - 1;
             }
             previousPeriod = currentPeriod;
@@ -197,11 +200,13 @@ public class FitnessServiceImpl implements IFitnessService {
         for (Lesson lesson : timetable.getLessons()) {
             // Check teacher-subject match
             if (lesson.getTeacher().getSubject() != lesson.getSubject()) {
+                setLessonConflicted(lesson,true);
                 invalid++;
             }
 
             // Check room-subject compatibility
             if (!lesson.getClassroom().canAccommodate(lesson.getSubject())) {
+                setLessonConflicted(lesson,true);
                 invalid++;
             }
         }
@@ -283,6 +288,14 @@ public class FitnessServiceImpl implements IFitnessService {
             if(i>1) collisions+=i-1;
         }
 
+        for (Lesson lesson : dayLessons) {
+            int period=lesson.getTimeSlot().getPeriod();
+            if (collisionsList.get(period)>1){
+                setLessonConflicted(lesson,true);
+            }
+        }
+
+
         return collisions;
     }
 
@@ -324,11 +337,19 @@ public class FitnessServiceImpl implements IFitnessService {
         int phyCulGaps=0;
 
         for(int i=0;i<periods.size()-1;i++){
-            phyCulGaps+=periods.get(i+1)-periods.get(i)-1;
+            int newGaps=periods.get(i+1)-periods.get(i)-1;
+            if (newGaps>0){
+                dayLessons.stream()
+                        .filter(lesson -> lesson.getSubject().equals(Subject.PHYSICAL_CULTURE))
+                        .forEach(lesson -> setLessonConflicted(lesson,true));
+            }
+            phyCulGaps+=newGaps;
         }
         if (!periods.isEmpty()){
             int lastPeriod=dayLessons.getLast().getTimeSlot().getPeriod();
-            phyCulGaps+=lastPeriod-periods.getLast();
+            int newGaps=lastPeriod-periods.getLast();
+            if (newGaps>0){setLessonConflicted(dayLessons.getLast(),true);}
+            phyCulGaps+=newGaps;
         }
         return phyCulGaps;
     }
@@ -373,6 +394,10 @@ public class FitnessServiceImpl implements IFitnessService {
         }
 
         return violations;
+    }
+
+    public void setLessonConflicted(Lesson lesson,boolean conflicted){
+        lesson.setConflicted(conflicted);
     }
 
 }

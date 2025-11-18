@@ -55,7 +55,13 @@ public class GeneticOperatorServiceImpl implements IGeneticOperatorService {
         boolean mutated = false;
 
         for (int i = 0; i < lessons.size(); i++) {
-            if (random.nextDouble() < mutationRate) {
+            double mutationProbability=mutationRate;
+            //if lesson is conflicted, increment the probability of mutation
+            if (lessons.get(i).isConflicted()){
+                mutationProbability=adjustProbability(mutationProbability,timetable.getFitness());
+            }
+
+            if (random.nextDouble() < mutationProbability) {
                 Lesson originalLesson = lessons.get(i);
                 Lesson mutatedLesson = mutateLesson(originalLesson);
                 lessons.set(i, mutatedLesson);
@@ -68,6 +74,16 @@ public class GeneticOperatorServiceImpl implements IGeneticOperatorService {
         } else {
             return timetable; // Return original if no mutation occurred
         }
+    }
+
+    /**
+     *Increment probability, depending on fitness score
+     * @param probability of mutation (mutation rate)
+     * @param currentFitness fitness of curent timetable
+     * @return mutated lesson
+     */
+    private double adjustProbability(double probability, double currentFitness){
+        return probability+0.5*(currentFitness/2000);
     }
 
     /**
