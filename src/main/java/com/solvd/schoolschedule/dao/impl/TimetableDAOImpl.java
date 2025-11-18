@@ -45,7 +45,7 @@ public class TimetableDAOImpl implements ITimetableDAO {
             String name = "Timetable_" + new Timestamp(System.currentTimeMillis()).toString().replace(" ", "_");
             stmt.setString(1, name);
             stmt.setDouble(2, timetable.getFitness());
-            stmt.setInt(3, SchoolConfig.GA_MAX_GENERATIONS);
+            stmt.setInt(3, timetable.getGeneration());
 
             stmt.executeUpdate();
 

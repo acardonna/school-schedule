@@ -29,4 +29,6 @@ public interface IDisplayService {
      * @param timetable the final best timetable
      */
     void displayFinalResults(Timetable timetable);
+
+    void display(String string);
 }

@@ -25,7 +25,7 @@ public class Main {
 
         // Generate optimized timetable using genetic algorithm
         ITimetableGeneratorService timetableGenerator = new TimetableGeneratorServiceImpl();
-        timetableGenerator.generateAndDisplayTimetable();
+        timetableGenerator.findSolution(10);
 
      }
 }

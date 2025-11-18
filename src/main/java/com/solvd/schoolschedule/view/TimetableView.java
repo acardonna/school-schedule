@@ -224,4 +224,13 @@ public class TimetableView {
             return splitString[0].charAt(0) + splitString[1].substring(0, 3);
         }
     }
+
+    /**
+     * Displays a message
+     *
+     * @param string message
+     */
+    public void displayMessage(String string) {
+        logger.info(string);
+    }
 }
