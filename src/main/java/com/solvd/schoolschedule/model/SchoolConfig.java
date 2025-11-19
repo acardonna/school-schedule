@@ -53,7 +53,7 @@ public class SchoolConfig {
      * Maximum number of generations for evolution
      * More generations = better optimization but longer runtime
      */
-    public static final int GA_MAX_GENERATIONS = 400;
+    public static final int GA_MAX_GENERATIONS = 700;
 
     /**
      * Mutation rate (probability of mutation occurring)
