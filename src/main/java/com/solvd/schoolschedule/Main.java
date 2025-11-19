@@ -4,6 +4,7 @@ import com.solvd.schoolschedule.service.impl.TimetableGeneratorServiceImpl;
 import com.solvd.schoolschedule.service.interfaces.ITimetableGeneratorService;
 import com.solvd.schoolschedule.util.DatabaseInitializer;
 
+
 /**
  * This application uses a genetic algorithm to generate optimized school timetables
  * that avoid scheduling conflicts and meet various constraints.

@@ -50,7 +50,7 @@ public class FitnessServiceImpl implements IFitnessService {
      * @param timetable the timetable
      * @return number of conflicts
      */
-    private int calculateRoomConflicts(Timetable timetable) {
+    private int calculateRoomConflicts (Timetable timetable) {
         int conflicts = 0;
         Map<TimeSlot, Set<Classroom>> timeSlotRooms = new HashMap<>();
 
@@ -398,6 +398,29 @@ public class FitnessServiceImpl implements IFitnessService {
 
     public void setLessonConflicted(Lesson lesson,boolean conflicted){
         lesson.setConflicted(conflicted);
+    }
+
+    /**
+     * Calculate conflicts for a timetable
+     * @param timetable the timetable to evaluate
+     */
+
+    public void calculateConflicts(Timetable timetable) {
+        int conflictsNumber;
+        conflictsNumber= calculateRoomConflicts(timetable);           // Room conflicts
+//        timetable.addConflict();
+//        fitness -= calculateRoomAccomodate(timetable) * 50;           // Special Room accommodation for subjects
+//        fitness -= calculateGroupGaps(timetable) * 50;               // Group gaps (no gaps rule)
+//        fitness -= calculateTeacherGaps(timetable) * 50;             // Teacher gaps (no gaps rule)
+//        fitness -= calculateMaxLessonsPerDayViolations(timetable) * 40; // Max 6 lessons/day
+//        fitness -= calculateTeacherLessonLimitViolations(timetable) * 0; // 2-3 lessons/day limit
+//        fitness -= calculateInvalidAssignments(timetable) * 100;     // Invalid assignments
+//        fitness -= calculateGroupCollisions(timetable) * 50;        //No 2 lessons at the same time for a group
+//        fitness -= calculateTeacherCollisions(timetable) * 50;      //No 2 lessons at the same time for a teacher
+//        fitness -= calculateLastLesson(timetable) * 30;             //Last lesson should always be Physical Culture
+//        fitness -= calculateAdjustment(timetable) * 100;             //The number of lessons per subject
+
+
     }
 
 }
