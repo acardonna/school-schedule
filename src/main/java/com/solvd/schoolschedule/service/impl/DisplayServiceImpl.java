@@ -18,7 +18,7 @@ public class DisplayServiceImpl implements IDisplayService {
     /**
      * Displays on console a complete summary of the timetable
      *
-     * @param timetable timetable
+     * @param timetable         timetable
      * @param populationService populationService
      */
     @Override
@@ -45,7 +45,7 @@ public class DisplayServiceImpl implements IDisplayService {
      * Displays the progress of a generation in the genetic algorithm
      *
      * @param generation generation number
-     * @param fitness best fitness value
+     * @param fitness    best fitness value
      */
     @Override
     public void displayGenerationProgress(int generation, double fitness) {

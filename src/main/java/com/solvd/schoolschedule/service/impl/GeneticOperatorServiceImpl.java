@@ -83,7 +83,9 @@ public class GeneticOperatorServiceImpl implements IGeneticOperatorService {
      * @return mutated lesson
      */
     private double adjustProbability(double probability, double currentFitness){
-        return probability+0.5*(currentFitness/2000);
+        double addProbability=0.5*(currentFitness/2000);
+        addProbability=(addProbability>=0)? addProbability:0;
+        return probability+addProbability;
     }
 
     /**
