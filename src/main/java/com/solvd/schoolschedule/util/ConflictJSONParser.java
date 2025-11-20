@@ -2,6 +2,8 @@ package com.solvd.schoolschedule.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solvd.schoolschedule.model.Conflict;
+import com.solvd.schoolschedule.model.Timetable;
+import com.solvd.schoolschedule.model.TimetableConflicts;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,12 +18,12 @@ public class ConflictJSONParser {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static String filePath = "src/main/resources/conflicts.json";
 
-    public static void serealize(List<Conflict> conflicts) {
+    public static void serealize(List<TimetableConflicts> timetableConflicts) {
 
         try {
             // writerWithDefaultPrettyPrinter() it's used to format output with indent and newlines.
             String jsonString = MAPPER.writerWithDefaultPrettyPrinter()
-                    .writeValueAsString(conflicts);
+                    .writeValueAsString(timetableConflicts);
 
             Path path = Paths.get(filePath);
             // Creates or overwrite4s the file.

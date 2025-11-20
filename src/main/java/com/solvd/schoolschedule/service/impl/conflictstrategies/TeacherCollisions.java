@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class TeacherCollisions implements IConflictStrategy {
-    private ConflictType conflictType = ConflictType.GROUP_GAPS;
+    private ConflictType conflictType = ConflictType.TEACHER_COLLISIONS;
     private IPopulationService populationService;
 
     public TeacherCollisions(IPopulationService populationService){

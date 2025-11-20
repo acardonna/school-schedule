@@ -1,7 +1,10 @@
 package com.solvd.schoolschedule.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.solvd.schoolschedule.model.TimetableConflicts;
+import com.solvd.schoolschedule.util.ConflictJSONParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -46,6 +49,8 @@ public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService
      */
     @Override
     public Timetable generateAndDisplayTimetable() {
+        List<TimetableConflicts> bestTimetables =new ArrayList<>();
+
         // Initialize population
         List<Timetable> population = populationService.initializePopulation(SchoolConfig.GA_POPULATION_SIZE);
 
@@ -69,6 +74,15 @@ public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService
             // Find best timetable in current generation
             bestTimetable = findBestTimetable(population);
             bestTimetable.setGeneration(generation);
+
+
+            // Print progress every 20 generations
+            if (generation % 20 == 0) {
+                fitnessService.updateConflicts(bestTimetable);
+                TimetableConflicts timetableConflicts=new TimetableConflicts(bestTimetable);
+                bestTimetables.add(timetableConflicts);
+            }
+
 
             solutionFound = bestTimetable.getFitness()>=2000;
 
@@ -94,6 +108,8 @@ public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService
             logger.info("=== Saving timetable to database... ===");
             timetableDAO.create(bestTimetable);
             logger.info("=== Timetable saved successfully!   ===");
+
+            ConflictJSONParser.serealize(bestTimetables);
         }
         return bestTimetable;
 

@@ -31,10 +31,29 @@ public class FitnessServiceImpl implements IFitnessService {
         double fitness = 2000.0; // Base fitness (increased for more evolution room)
 
         for(IConflictStrategy conflictStrategy: rules.keySet()){
-            fitness-=conflictStrategy.calculateConflicts(timetable)*rules.get(conflictStrategy);
+            int NumberOfConflicts =conflictStrategy.calculateConflicts(timetable);
+            fitness-=NumberOfConflicts*rules.get(conflictStrategy);
         }
 
         return fitness;
+    }
+
+    /**
+     * Calculate and update conflict list for a timetable
+     *
+     * @param timetable the timetable to evaluate
+     *
+     */
+    public void updateConflicts(Timetable timetable) {
+        double fitness = 2000.0; // Base fitness (increased for more evolution room)
+        timetable.setConflicts(new ArrayList<>());
+
+        for(IConflictStrategy conflictStrategy: rules.keySet()){
+            int NumberOfConflicts =conflictStrategy.calculateConflicts(timetable);
+            fitness-=NumberOfConflicts*rules.get(conflictStrategy);
+            Conflict conflict=new Conflict(conflictStrategy.getConflictType(),NumberOfConflicts);
+            timetable.addConflict(conflict);
+        }
     }
 
     /**
