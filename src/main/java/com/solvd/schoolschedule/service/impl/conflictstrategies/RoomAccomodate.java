@@ -7,15 +7,15 @@ public class RoomAccomodate implements IConflictStrategy {
     private ConflictType conflictType = ConflictType.ROOM_ACCOMODATE;
 
     @Override
-    public ConflictType getConflictType () {
+    public ConflictType getConflictType() {
         return conflictType;
     }
 
     @Override
-    public int calculateConflicts (Timetable timetable) {
+    public int calculateConflicts(Timetable timetable) {
 
         return (int) timetable.getLessons().stream()
-                .filter(lesson ->lesson.getClassroom().canAccommodate(lesson.getSubject())==false )
+                .filter(lesson -> lesson.getClassroom().canAccommodate(lesson.getSubject()) == false)
                 .peek(lesson -> lesson.setConflicted(true))
                 .count();
     }

@@ -11,6 +11,7 @@ public interface IPopulationService {
 
     /**
      * Initialize a population of random timetables
+     *
      * @param populationSize the size of the population
      * @return list of timetables
      */
@@ -18,18 +19,21 @@ public interface IPopulationService {
 
     /**
      * Get all teachers
+     *
      * @return list of teachers
      */
     List<Teacher> getTeachers();
 
     /**
      * Get all classrooms
+     *
      * @return list of classrooms
      */
     List<Classroom> getClassrooms();
 
     /**
      * Get all groups
+     *
      * @return list of groups
      */
     List<Group> getGroups();

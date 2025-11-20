@@ -12,12 +12,12 @@ public class RoomConflicts implements IConflictStrategy {
     private ConflictType conflictType = ConflictType.ROOM_CONFLICTS;
 
     @Override
-    public ConflictType getConflictType () {
+    public ConflictType getConflictType() {
         return conflictType;
     }
 
     @Override
-    public int calculateConflicts (Timetable timetable) {
+    public int calculateConflicts(Timetable timetable) {
         int conflicts = 0;
         Map<TimeSlot, Set<Classroom>> timeSlotRooms = new HashMap<>();
 

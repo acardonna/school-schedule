@@ -11,6 +11,7 @@ public interface ISelectionService {
 
     /**
      * Select a parent from the population using tournament selection
+     *
      * @param population the population to select from
      * @return the selected timetable
      */
@@ -18,6 +19,7 @@ public interface ISelectionService {
 
     /**
      * Select two parents for crossover
+     *
      * @param population the population to select from
      * @return array of two parent timetables
      */
@@ -25,7 +27,8 @@ public interface ISelectionService {
 
     /**
      * Select multiple parents for reproduction
-     * @param population the population
+     *
+     * @param population      the population
      * @param numberOfParents number of parents to select
      * @return list of selected parents
      */

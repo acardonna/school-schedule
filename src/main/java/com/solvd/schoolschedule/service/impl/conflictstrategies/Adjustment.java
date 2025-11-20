@@ -10,17 +10,17 @@ public class Adjustment implements IConflictStrategy {
     private ConflictType conflictType = ConflictType.ADJUSTMENT;
     private IPopulationService populationService;
 
-    public Adjustment(IPopulationService populationService){
-        this.populationService=populationService;
+    public Adjustment(IPopulationService populationService) {
+        this.populationService = populationService;
     }
 
     @Override
-    public ConflictType getConflictType () {
+    public ConflictType getConflictType() {
         return conflictType;
     }
 
     @Override
-    public int calculateConflicts (Timetable timetable){
+    public int calculateConflicts(Timetable timetable) {
         int totalViolations = 0;
 
         for (Group group : populationService.getGroups()) {
@@ -35,6 +35,7 @@ public class Adjustment implements IConflictStrategy {
     /**
      * Count the number of lessons that the group
      * doesn't have yet (compared to the SchoolConfig)
+     *
      * @param lessons list of lessons for the group
      * @return needed number of lessons to be added
      */
@@ -42,14 +43,14 @@ public class Adjustment implements IConflictStrategy {
 
         int violations = 0;
 
-        for (Subject subject:Subject.values()) {
-            int lessonsNumberConfig=SubjectConfig.getWeeklyLessons(subject);
+        for (Subject subject : Subject.values()) {
+            int lessonsNumberConfig = SubjectConfig.getWeeklyLessons(subject);
 
-            int lessonsNumber=(int) lessons.stream()
+            int lessonsNumber = (int) lessons.stream()
                     .filter(lesson -> lesson.getSubject().equals(subject))
                     .count();
 
-            violations+=Math.abs(lessonsNumberConfig-lessonsNumber);
+            violations += Math.abs(lessonsNumberConfig - lessonsNumber);
         }
 
         return violations;

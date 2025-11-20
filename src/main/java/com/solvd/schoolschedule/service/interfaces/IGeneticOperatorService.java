@@ -11,6 +11,7 @@ public interface IGeneticOperatorService {
 
     /**
      * Perform crossover between two parent timetables
+     *
      * @param parent1 first parent
      * @param parent2 second parent
      * @return offspring timetable
@@ -19,6 +20,7 @@ public interface IGeneticOperatorService {
 
     /**
      * Perform mutation on a timetable
+     *
      * @param timetable the timetable to mutate
      * @return mutated timetable (or original if no mutation)
      */
@@ -26,7 +28,8 @@ public interface IGeneticOperatorService {
 
     /**
      * Create a new generation through selection, crossover, and mutation
-     * @param population current population
+     *
+     * @param population       current population
      * @param selectionService selection service
      * @return new generation
      */

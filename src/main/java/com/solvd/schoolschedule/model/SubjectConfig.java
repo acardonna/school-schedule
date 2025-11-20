@@ -13,12 +13,13 @@ public class SubjectConfig {
         // Define how many times per week each subject is taught
         WEEKLY_LESSONS.put(Subject.MATH, 5);
         WEEKLY_LESSONS.put(Subject.PHYSICS, 4);
-        WEEKLY_LESSONS.put(Subject.INFORMATICS, 4);
-        WEEKLY_LESSONS.put(Subject.PHYSICAL_CULTURE, 3);
+        WEEKLY_LESSONS.put(Subject.INFORMATICS, 3);
+        WEEKLY_LESSONS.put(Subject.PHYSICAL_CULTURE, 2);
     }
 
     /**
      * Get the number of weekly lessons for a subject
+     *
      * @param subject the subject
      * @return number of lessons per week
      */
@@ -28,6 +29,7 @@ public class SubjectConfig {
 
     /**
      * Get total lessons per week for all subjects
+     *
      * @return total weekly lessons
      */
     public static int getTotalWeeklyLessons() {
@@ -36,6 +38,7 @@ public class SubjectConfig {
 
     /**
      * Get the average lessons per day
+     *
      * @return average daily lessons
      */
     public static double getAverageLessonsPerDay() {

@@ -12,6 +12,7 @@ public interface IFitnessService {
     /**
      * Calculate fitness for a timetable
      * Higher fitness = better timetable (fewer constraint violations)
+     *
      * @param timetable the timetable to evaluate
      * @return fitness score
      */
@@ -19,15 +20,10 @@ public interface IFitnessService {
 
     /**
      * Evaluate the entire population and set fitness for each timetable
+     *
      * @param population the population to evaluate
      */
     void evaluatePopulation(List<Timetable> population);
 
-//    /**
-//     * Count the number of lessons that the group
-//     * doesn't have yet (compared to the SchoolConfig)
-//     * @param lessons list of lessons for the group
-//     * @return needed number of lessons to be added
-//     */
-    // int calculateGroupAdjustment(List<Lesson> lessons);
+    public void updateConflicts(Timetable timetable);
 }

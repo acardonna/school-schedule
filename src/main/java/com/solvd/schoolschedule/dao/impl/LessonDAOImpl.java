@@ -26,7 +26,7 @@ public class LessonDAOImpl implements ILessonDAO {
      * Creates a lesson associated with a specific timetable.
      * Extracts all necessary IDs from the lesson's related entities.
      *
-     * @param lesson the Lesson to persist with all relationships set
+     * @param lesson      the Lesson to persist with all relationships set
      * @param timetableId the ID of the timetable this lesson belongs to
      * @throws RuntimeException if database error occurs
      */

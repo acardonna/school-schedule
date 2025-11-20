@@ -4,9 +4,9 @@ public class Conflict {
     private ConflictType conflictType;
     private int number;
 
-    public Conflict(ConflictType conflictType,int number){
-        this.conflictType=conflictType;
-        this.number=number;
+    public Conflict(ConflictType conflictType, int number) {
+        this.conflictType = conflictType;
+        this.number = number;
     }
 
     public ConflictType getConflictType() {

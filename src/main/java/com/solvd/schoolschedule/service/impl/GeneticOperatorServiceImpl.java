@@ -22,6 +22,7 @@ public class GeneticOperatorServiceImpl implements IGeneticOperatorService {
 
     /**
      * Perform crossover between two parent timetables
+     *
      * @param parent1 first parent
      * @param parent2 second parent
      * @return offspring timetable
@@ -46,6 +47,7 @@ public class GeneticOperatorServiceImpl implements IGeneticOperatorService {
 
     /**
      * Perform mutation on a timetable
+     *
      * @param timetable the timetable to mutate
      * @return mutated timetable (or original if no mutation)
      */
@@ -55,10 +57,10 @@ public class GeneticOperatorServiceImpl implements IGeneticOperatorService {
         boolean mutated = false;
 
         for (int i = 0; i < lessons.size(); i++) {
-            double mutationProbability=mutationRate;
+            double mutationProbability = mutationRate;
             //if lesson is conflicted, increment the probability of mutation
-            if (lessons.get(i).isConflicted()){
-                mutationProbability=adjustProbability(mutationProbability,timetable.getFitness());
+            if (lessons.get(i).isConflicted()) {
+                mutationProbability = adjustProbability(mutationProbability, timetable.getFitness());
             }
 
             if (random.nextDouble() < mutationProbability) {
@@ -77,19 +79,21 @@ public class GeneticOperatorServiceImpl implements IGeneticOperatorService {
     }
 
     /**
-     *Increment probability, depending on fitness score
-     * @param probability of mutation (mutation rate)
+     * Increment probability, depending on fitness score
+     *
+     * @param probability    of mutation (mutation rate)
      * @param currentFitness fitness of curent timetable
      * @return mutated lesson
      */
-    private double adjustProbability(double probability, double currentFitness){
-        double addProbability=0.5*(currentFitness/2000);
-        addProbability=(addProbability>=0)? addProbability:0;
-        return probability+addProbability;
+    private double adjustProbability(double probability, double currentFitness) {
+        double addProbability = 0.5 * (currentFitness / 2000);
+        addProbability = (addProbability >= 0) ? addProbability : 0;
+        return probability + addProbability;
     }
 
     /**
      * Mutate a single lesson by changing its time slot or classroom
+     *
      * @param lesson the lesson to mutate
      * @return mutated lesson
      */
@@ -101,18 +105,18 @@ public class GeneticOperatorServiceImpl implements IGeneticOperatorService {
             case 0: // Change time slot
                 TimeSlot newTimeSlot = getRandomTimeSlot();
                 return new Lesson(lesson.getSubject(), lesson.getTeacher(),
-                                lesson.getClassroom(), newTimeSlot, lesson.getGroup());
+                        lesson.getClassroom(), newTimeSlot, lesson.getGroup());
 
             case 1: // Change classroom (if possible)
                 Classroom newClassroom = getRandomClassroomForSubject(lesson.getSubject());
                 return new Lesson(lesson.getSubject(), lesson.getTeacher(),
-                                newClassroom, lesson.getTimeSlot(), lesson.getGroup());
+                        newClassroom, lesson.getTimeSlot(), lesson.getGroup());
 
             case 2: // Change both time slot and classroom
                 TimeSlot newTimeSlot2 = getRandomTimeSlot();
                 Classroom newClassroom2 = getRandomClassroomForSubject(lesson.getSubject());
                 return new Lesson(lesson.getSubject(), lesson.getTeacher(),
-                                newClassroom2, newTimeSlot2, lesson.getGroup());
+                        newClassroom2, newTimeSlot2, lesson.getGroup());
 
             default:
                 return lesson;
@@ -121,6 +125,7 @@ public class GeneticOperatorServiceImpl implements IGeneticOperatorService {
 
     /**
      * Get a random time slot
+     *
      * @return random time slot
      */
     private TimeSlot getRandomTimeSlot() {
@@ -131,6 +136,7 @@ public class GeneticOperatorServiceImpl implements IGeneticOperatorService {
 
     /**
      * Get a random classroom suitable for the subject
+     *
      * @param subject the subject
      * @return suitable classroom
      */
@@ -148,7 +154,8 @@ public class GeneticOperatorServiceImpl implements IGeneticOperatorService {
 
     /**
      * Create a new generation through selection, crossover, and mutation
-     * @param population current population
+     *
+     * @param population       current population
      * @param selectionService selection service
      * @return new generation
      */

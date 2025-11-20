@@ -74,7 +74,7 @@ public class DatabaseInitializer {
     /**
      * Checks if the database is already populated by verifying if key tables contain data.
      * Queries the subject table to determine if initialization has already occurred.
-     *
+     * <p>
      * If any table is empty, the database is considered unpopulated.</p>
      *
      * @return true if all checked tables contain data, false otherwise
@@ -119,10 +119,10 @@ public class DatabaseInitializer {
         String sql = "INSERT INTO subject (subject_code, display_name, weekly_lessons) VALUES (?, ?, ?)";
 
         String[][] subjects = {
-            {"MATH", "Mathematics", "5"},
-            {"PHYSICS", "Physics", "4"},
-            {"INFORMATICS", "Informatics", "3"},
-            {"PHYSICAL_CULTURE", "Physical Culture", "2"}
+                {"MATH", "Mathematics", "5"},
+                {"PHYSICS", "Physics", "4"},
+                {"INFORMATICS", "Informatics", "3"},
+                {"PHYSICAL_CULTURE", "Physical Culture", "2"}
         };
 
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -147,10 +147,10 @@ public class DatabaseInitializer {
         String sql = "INSERT INTO student_group (name, student_count) VALUES (?, ?)";
 
         String[][] groups = {
-            {"Group 1", "30"},
-            {"Group 2", "30"},
-            {"Group 3", "30"},
-            {"Group 4", "30"}
+                {"Group 1", "30"},
+                {"Group 2", "30"},
+                {"Group 3", "30"},
+                {"Group 4", "30"}
         };
 
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -182,10 +182,10 @@ public class DatabaseInitializer {
         String sql = "INSERT INTO teacher (name, subject_code) VALUES (?, ?)";
 
         String[][] teachers = {
-            {"Mr. Smith", "MATH"},
-            {"Ms. Johnson", "PHYSICS"},
-            {"Dr. Brown", "INFORMATICS"},
-            {"Mrs. Davis", "PHYSICAL_CULTURE"}
+                {"Mr. Smith", "MATH"},
+                {"Ms. Johnson", "PHYSICS"},
+                {"Dr. Brown", "INFORMATICS"},
+                {"Mrs. Davis", "PHYSICAL_CULTURE"}
         };
 
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -216,11 +216,11 @@ public class DatabaseInitializer {
         String sql = "INSERT INTO classroom (name, room_type) VALUES (?, ?)";
 
         String[][] classrooms = {
-            {"Room 101", "GENERAL"},
-            {"Room 102", "GENERAL"},
-            {"Room 103", "GENERAL"},
-            {"Physics Lab", "PHYSICS_LAB"},
-            {"Computer Lab", "COMPUTER_LAB"}
+                {"Room 101", "GENERAL"},
+                {"Room 102", "GENERAL"},
+                {"Room 103", "GENERAL"},
+                {"Physics Lab", "PHYSICS_LAB"},
+                {"Computer Lab", "COMPUTER_LAB"}
         };
 
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -254,11 +254,11 @@ public class DatabaseInitializer {
         String sql = "INSERT INTO classroom_subject_capability (classroom_id, subject_code) VALUES (?, ?)";
 
         int[][] capabilities = {
-            {1, 1}, {1, 2}, {1, 4},  // Room 101: MATH, PHYSICS, PHYSICAL_CULTURE
-            {2, 1}, {2, 2}, {2, 4},  // Room 102: MATH, PHYSICS, PHYSICAL_CULTURE
-            {3, 1}, {3, 2}, {3, 4},  // Room 103: MATH, PHYSICS, PHYSICAL_CULTURE
-            {4, 2},                   // Physics Lab: PHYSICS
-            {5, 3}                    // Computer Lab: INFORMATICS
+                {1, 1}, {1, 2}, {1, 4},  // Room 101: MATH, PHYSICS, PHYSICAL_CULTURE
+                {2, 1}, {2, 2}, {2, 4},  // Room 102: MATH, PHYSICS, PHYSICAL_CULTURE
+                {3, 1}, {3, 2}, {3, 4},  // Room 103: MATH, PHYSICS, PHYSICAL_CULTURE
+                {4, 2},                   // Physics Lab: PHYSICS
+                {5, 3}                    // Computer Lab: INFORMATICS
         };
 
         String[] subjectCodes = {"MATH", "PHYSICS", "INFORMATICS", "PHYSICAL_CULTURE"};

@@ -19,19 +19,22 @@ public class Timetable {
     public Timetable() {
         this.lessons = new ArrayList<>();
         this.fitness = 0.0;
-        this.generation=0;
+        this.generation = 0;
+        this.conflicts = new ArrayList<>();
     }
 
     public Timetable(List<Lesson> lessons) {
         this.lessons = new ArrayList<>(lessons);
         this.fitness = 0.0;
-        this.generation=0;
+        this.generation = 0;
+        this.conflicts = new ArrayList<>();
     }
 
     public Timetable(List<Lesson> lessons, int generation) {
         this.lessons = new ArrayList<>(lessons);
         this.fitness = 0.0;
-        this.generation=generation;
+        this.generation = generation;
+        this.conflicts = new ArrayList<>();
     }
 
     public List<Lesson> getLessons() {
@@ -56,6 +59,14 @@ public class Timetable {
 
     public void setGeneration(int generation) {
         this.generation = generation;
+    }
+
+    public List<Conflict> getConflicts() {
+        return conflicts;
+    }
+
+    public void setConflicts(List<Conflict> conflicts) {
+        this.conflicts = conflicts;
     }
 
     public Timetable copy() {
@@ -98,7 +109,7 @@ public class Timetable {
                 .collect(Collectors.toList());
     }
 
-    public void addConflict(Conflict conflict){
+    public void addConflict(Conflict conflict) {
         conflicts.add(conflict);
     }
 

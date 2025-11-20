@@ -23,7 +23,7 @@ public interface ILessonDAO {
     /**
      * Creates a new lesson in the database associated with a timetable.
      *
-     * @param lesson the Lesson to insert
+     * @param lesson      the Lesson to insert
      * @param timetableId the ID of the timetable this lesson belongs to
      * @throws RuntimeException if a database error occurs
      */
