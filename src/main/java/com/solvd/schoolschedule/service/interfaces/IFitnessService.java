@@ -29,5 +29,5 @@ public interface IFitnessService {
      * @param lessons list of lessons for the group
      * @return needed number of lessons to be added
      */
-    int calculateGroupAdjustment(List<Lesson> lessons);
+    //int calculateGroupAdjustment(List<Lesson> lessons);
 }
