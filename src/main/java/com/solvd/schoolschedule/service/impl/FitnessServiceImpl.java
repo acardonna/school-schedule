@@ -78,7 +78,6 @@ public class FitnessServiceImpl implements IFitnessService {
                 .filter(lesson ->lesson.getClassroom().canAccommodate(lesson.getSubject())==false )
                 .peek(lesson -> lesson.setConflicted(true))
                 .count();
-
     }
 
     /**
