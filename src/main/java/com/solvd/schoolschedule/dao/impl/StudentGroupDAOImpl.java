@@ -49,9 +49,9 @@ public class StudentGroupDAOImpl implements IStudentGroupDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new Group(
-                    rs.getInt("group_id"),
-                    rs.getString("group_name"),
-                    rs.getInt("number_of_students")
+                        rs.getInt("group_id"),
+                        rs.getString("group_name"),
+                        rs.getInt("number_of_students")
                 );
             }
             return null;
@@ -75,9 +75,9 @@ public class StudentGroupDAOImpl implements IStudentGroupDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 groups.add(new Group(
-                    rs.getInt("group_id"),
-                    rs.getString("group_name"),
-                    rs.getInt("number_of_students")
+                        rs.getInt("group_id"),
+                        rs.getString("group_name"),
+                        rs.getInt("number_of_students")
                 ));
             }
             return groups;

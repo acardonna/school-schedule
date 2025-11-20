@@ -49,7 +49,7 @@ public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService
      */
     @Override
     public Timetable generateAndDisplayTimetable() {
-        List<TimetableConflicts> bestTimetables =new ArrayList<>();
+        List<TimetableConflicts> bestTimetables = new ArrayList<>();
 
         // Initialize population
         List<Timetable> population = populationService.initializePopulation(SchoolConfig.GA_POPULATION_SIZE);
@@ -62,8 +62,8 @@ public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService
         displayService.displayGenerationProgress(0, bestTimetable.getFitness());
 
         // Run genetic algorithm for specified generations
-        int generation =1;
-        boolean solutionFound=false;
+        int generation = 1;
+        boolean solutionFound = false;
         while (generation <= SchoolConfig.GA_MAX_GENERATIONS & !solutionFound) {
             // Create new generation
             population = geneticOperatorService.createNewGeneration(population, selectionService);
@@ -79,12 +79,12 @@ public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService
             // Print progress every 20 generations
             if (generation % 20 == 0) {
                 fitnessService.updateConflicts(bestTimetable);
-                TimetableConflicts timetableConflicts=new TimetableConflicts(bestTimetable);
+                TimetableConflicts timetableConflicts = new TimetableConflicts(bestTimetable);
                 bestTimetables.add(timetableConflicts);
             }
 
 
-            solutionFound = bestTimetable.getFitness()>=2000;
+            solutionFound = bestTimetable.getFitness() >= 2000;
 
             // Print progress every N generations
             if (generation % SchoolConfig.PROGRESS_UPDATE_FREQUENCY == 0) {
@@ -95,10 +95,10 @@ public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService
             generation++;
         }
 
-        if (solutionFound){
+        if (solutionFound) {
             displayService.displayFinalResults(bestTimetable);
 
-            displayService.display("Number of generations: "+(generation-1));
+            displayService.display("Number of generations: " + (generation - 1));
 
             displayService.displayTimetableSummary(bestTimetable, populationService);
 
@@ -128,17 +128,17 @@ public class TimetableGeneratorServiceImpl implements ITimetableGeneratorService
     }
 
     /**
-     *Tries to find a solution with perfect fitness
+     * Tries to find a solution with perfect fitness
      *
      * @param maxNumberOfTries list of timetables
      */
     public void findSolution(int maxNumberOfTries) {
-        int attempt=0;
-        boolean solutionFound=false;
-        while (attempt<maxNumberOfTries & !solutionFound){
-            displayService.display("ATTEMPT #" + (attempt+1) + ":");
-            Timetable bestTimeTable=generateAndDisplayTimetable();
-            solutionFound=bestTimeTable.getFitness()>=2000;
+        int attempt = 0;
+        boolean solutionFound = false;
+        while (attempt < maxNumberOfTries & !solutionFound) {
+            displayService.display("ATTEMPT #" + (attempt + 1) + ":");
+            Timetable bestTimeTable = generateAndDisplayTimetable();
+            solutionFound = bestTimeTable.getFitness() >= 2000;
             attempt++;
         }
     }

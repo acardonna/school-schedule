@@ -10,17 +10,17 @@ public class MaxLessonsPerDay implements IConflictStrategy {
     private ConflictType conflictType = ConflictType.MAX_LESSONS_PER_DAY;
     private IPopulationService populationService;
 
-    public MaxLessonsPerDay(IPopulationService populationService){
-        this.populationService=populationService;
+    public MaxLessonsPerDay(IPopulationService populationService) {
+        this.populationService = populationService;
     }
 
     @Override
-    public ConflictType getConflictType () {
+    public ConflictType getConflictType() {
         return conflictType;
     }
 
     @Override
-    public int calculateConflicts (Timetable timetable){
+    public int calculateConflicts(Timetable timetable) {
         int violations = 0;
 
         for (Group group : populationService.getGroups()) {

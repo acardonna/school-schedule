@@ -12,6 +12,7 @@ public interface IFitnessService {
     /**
      * Calculate fitness for a timetable
      * Higher fitness = better timetable (fewer constraint violations)
+     *
      * @param timetable the timetable to evaluate
      * @return fitness score
      */
@@ -19,6 +20,7 @@ public interface IFitnessService {
 
     /**
      * Evaluate the entire population and set fitness for each timetable
+     *
      * @param population the population to evaluate
      */
     void evaluatePopulation(List<Timetable> population);

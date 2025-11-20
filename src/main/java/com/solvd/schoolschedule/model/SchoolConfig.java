@@ -21,7 +21,7 @@ public class SchoolConfig {
      * Day names for display purposes
      */
     public static final String[] DAY_NAMES = {
-        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"
+            "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"
     };
 
     // ========== School Resources ==========

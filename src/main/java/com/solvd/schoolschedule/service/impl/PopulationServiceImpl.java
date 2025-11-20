@@ -26,6 +26,7 @@ public class PopulationServiceImpl implements IPopulationService {
 
     /**
      * Initialize a population of random timetables
+     *
      * @param populationSize the size of the population
      * @return list of timetables
      */
@@ -40,6 +41,7 @@ public class PopulationServiceImpl implements IPopulationService {
 
     /**
      * Generate a random timetable with all required lessons
+     *
      * @return a randomly generated timetable
      */
     private Timetable generateRandomTimetable() {
@@ -67,8 +69,9 @@ public class PopulationServiceImpl implements IPopulationService {
 
     /**
      * Generate a random lesson for given subject and group
+     *
      * @param subject the subject
-     * @param group the group
+     * @param group   the group
      * @return a random lesson
      */
     private Lesson generateRandomLesson(Subject subject, Group group) {
@@ -81,6 +84,7 @@ public class PopulationServiceImpl implements IPopulationService {
 
     /**
      * Get teacher for a specific subject
+     *
      * @param subject the subject
      * @return the teacher for that subject
      */
@@ -93,6 +97,7 @@ public class PopulationServiceImpl implements IPopulationService {
 
     /**
      * Get a random classroom that can accommodate the subject
+     *
      * @param subject the subject
      * @return a suitable classroom
      */
@@ -110,6 +115,7 @@ public class PopulationServiceImpl implements IPopulationService {
 
     /**
      * Get a random time slot
+     *
      * @return a random time slot
      */
     private TimeSlot getRandomTimeSlot() {
@@ -120,6 +126,7 @@ public class PopulationServiceImpl implements IPopulationService {
 
     /**
      * Initialize teachers (one per subject)
+     *
      * @return list of teachers
      */
     private List<Teacher> initializeTeachers() {
@@ -133,12 +140,13 @@ public class PopulationServiceImpl implements IPopulationService {
 
     /**
      * Initialize classrooms (some specialized)
+     *
      * @return list of classrooms
      */
     private List<Classroom> initializeClassrooms() {
         List<Classroom> classroomList = new ArrayList<>();
-        Set<Subject> usualSubjects= Arrays.stream(Subject.values())
-                .filter(s->!s.equals(Subject.INFORMATICS))
+        Set<Subject> usualSubjects = Arrays.stream(Subject.values())
+                .filter(s -> !s.equals(Subject.INFORMATICS))
                 .collect(Collectors.toSet());
         // General classrooms
         classroomList.add(new Classroom(1, "Room 101", usualSubjects));
@@ -152,6 +160,7 @@ public class PopulationServiceImpl implements IPopulationService {
 
     /**
      * Initialize student groups
+     *
      * @return list of groups
      */
     private List<Group> initializeGroups() {
@@ -164,6 +173,7 @@ public class PopulationServiceImpl implements IPopulationService {
 
     /**
      * Get all teachers
+     *
      * @return list of teachers
      */
     @Override
@@ -173,6 +183,7 @@ public class PopulationServiceImpl implements IPopulationService {
 
     /**
      * Get all classrooms
+     *
      * @return list of classrooms
      */
     @Override
@@ -182,6 +193,7 @@ public class PopulationServiceImpl implements IPopulationService {
 
     /**
      * Get all groups
+     *
      * @return list of groups
      */
     @Override

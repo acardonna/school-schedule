@@ -50,9 +50,9 @@ public class TeacherDAOImpl implements ITeacherDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new Teacher(
-                    rs.getInt("teacher_id"),
-                    rs.getString("teacher_name"),
-                    Subject.valueOf(rs.getString("subject_code"))
+                        rs.getInt("teacher_id"),
+                        rs.getString("teacher_name"),
+                        Subject.valueOf(rs.getString("subject_code"))
                 );
             }
             return null;
@@ -76,9 +76,9 @@ public class TeacherDAOImpl implements ITeacherDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 teachers.add(new Teacher(
-                    rs.getInt("teacher_id"),
-                    rs.getString("teacher_name"),
-                    Subject.valueOf(rs.getString("subject_code"))
+                        rs.getInt("teacher_id"),
+                        rs.getString("teacher_name"),
+                        Subject.valueOf(rs.getString("subject_code"))
                 ));
             }
             return teachers;

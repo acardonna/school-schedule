@@ -1,8 +1,6 @@
 package com.solvd.schoolschedule.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.solvd.schoolschedule.model.Conflict;
-import com.solvd.schoolschedule.model.Timetable;
 import com.solvd.schoolschedule.model.TimetableConflicts;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -28,5 +28,5 @@ public class Main {
         ITimetableGeneratorService timetableGenerator = new TimetableGeneratorServiceImpl();
         timetableGenerator.findSolution(10);
 
-     }
+    }
 }

@@ -10,7 +10,7 @@ public interface IDisplayService {
     /**
      * Displays on console a complete summary of the timetable
      *
-     * @param timetable timetable
+     * @param timetable         timetable
      * @param populationService populationService
      */
     void displayTimetableSummary(Timetable timetable, IPopulationService populationService);
@@ -19,7 +19,7 @@ public interface IDisplayService {
      * Displays the progress of a generation in the genetic algorithm
      *
      * @param generation generation number
-     * @param fitness best fitness value
+     * @param fitness    best fitness value
      */
     void displayGenerationProgress(int generation, double fitness);
 

@@ -9,7 +9,8 @@ import com.solvd.schoolschedule.model.Subject;
 import com.solvd.schoolschedule.util.ConnectionPool;
 
 /**
- * Implementation of {@link ISubjectDAO} for Subject entity persistence.\n * Handles database operations for subjects using JDBC and PreparedStatements.\n * \n * <p>This DAO uses the ConnectionPool for database connections and ensures\n * proper resource management by releasing connections in finally blocks.</p>\n */
+ * Implementation of {@link ISubjectDAO} for Subject entity persistence.\n * Handles database operations for subjects using JDBC and PreparedStatements.\n * \n * <p>This DAO uses the ConnectionPool for database connections and ensures\n * proper resource management by releasing connections in finally blocks.</p>\n
+ */
 public class SubjectDAOImpl implements ISubjectDAO {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 

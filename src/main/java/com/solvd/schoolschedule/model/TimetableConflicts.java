@@ -19,9 +19,9 @@ public class TimetableConflicts {
         return conflicts;
     }
 
-    public TimetableConflicts(Timetable timetable){
-        this.generation= timetable.getGeneration();
-        this.fitness=timetable.getFitness();
-        this.conflicts=timetable.getConflicts();
+    public TimetableConflicts(Timetable timetable) {
+        this.generation = timetable.getGeneration();
+        this.fitness = timetable.getFitness();
+        this.conflicts = timetable.getConflicts();
     }
 }

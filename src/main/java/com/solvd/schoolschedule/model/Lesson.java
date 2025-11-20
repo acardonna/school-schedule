@@ -11,7 +11,7 @@ public class Lesson {
     private final Classroom classroom;
     private final TimeSlot timeSlot;
     private final Group group;
-    private boolean conflicted =false;
+    private boolean conflicted = false;
 
 
     public Lesson(Subject subject, Teacher teacher, Classroom classroom, TimeSlot timeSlot, Group group) {
