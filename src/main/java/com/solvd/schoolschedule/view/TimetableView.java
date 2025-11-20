@@ -54,17 +54,17 @@ public class TimetableView {
                 lineBuilder.append(formatDay(day));
 
                 int periodOfFirstLesson = dayLessons.getFirst().getTimeSlot().getPeriod();
-                String spaceStringPrefix = " ".repeat(periodOfFirstLesson * 11);
+                String spaceStringPrefix = " ".repeat(periodOfFirstLesson * 14);
                 lineBuilder.append(spaceStringPrefix);
 
                 for (Lesson lesson : dayLessons) {
                     String name = lesson.getSubject().getDisplayName();
-                    String groupString = "Gr" + lesson.getGroup().getId();
-                    lineBuilder.append(lesson.getTimeSlot().getPeriod() + "." + abbreviate(name) + "-" + groupString + " ");
+                    String classroomName = formatClassroom(lesson.getClassroom());
+                    lineBuilder.append(lesson.getTimeSlot().getPeriod() + "." + abbreviate(name) + "-" + classroomName + " ");
                 }
 
 
-                String spaceStringSufix = " ".repeat((max - periodOfFirstLesson - dayLessons.size()) * 11);
+                String spaceStringSufix = " ".repeat((max - periodOfFirstLesson - dayLessons.size()) * 14);
 
                 lineBuilder.append(spaceStringSufix + "(" + dayLessons.size() + " lessons)");
                 LOGGER.info(lineBuilder.toString());
@@ -98,8 +98,8 @@ public class TimetableView {
 
                 for (Lesson lesson : dayLessons) {
                     String name = "Gr" + lesson.getGroup().getId();
-                    String className = formatClassroom(lesson.getClassroom());
-                    lineBuilder.append(lesson.getTimeSlot().getPeriod() + "." + className + "-" + name + " ");
+                    String classroomName = formatClassroom(lesson.getClassroom());
+                    lineBuilder.append(lesson.getTimeSlot().getPeriod() + "." + classroomName + "-" + name + " ");
                 }
 
                 String spaceStringSufix = " ".repeat((max - periodOfFirstLesson - dayLessons.size()) * 13);
