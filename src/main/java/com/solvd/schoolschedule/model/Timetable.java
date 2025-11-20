@@ -14,6 +14,7 @@ public class Timetable {
     private final List<Lesson> lessons;
     private double fitness;
     private int generation;
+    private List<Conflict> conflicts;
 
     public Timetable() {
         this.lessons = new ArrayList<>();
@@ -95,6 +96,10 @@ public class Timetable {
                 .filter(lesson -> lesson.getTimeSlot().getDay() == day)
                 .sorted(Comparator.comparingInt(l -> l.getTimeSlot().getPeriod()))
                 .collect(Collectors.toList());
+    }
+
+    public void addConflict(Conflict conflict){
+        conflicts.add(conflict);
     }
 
 }

@@ -151,7 +151,9 @@ public class TimetableView {
      * @param fitness    best fitness value
      */
     public void displayGenerationProgress(int generation, double fitness) {
-        LOGGER.info("Generation " + generation + " - Best Fitness: " + fitness);
+        double percentage = fitness/2000*100;
+        String percentageString = percentage<0? "0%": String.format("%.2f%%", percentage);
+        LOGGER.info("Generation " + generation + " - Best Fitness: " + fitness + "/2000 " + percentageString);
     }
 
     /**

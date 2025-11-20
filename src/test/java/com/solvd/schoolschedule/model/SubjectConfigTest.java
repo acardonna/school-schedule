@@ -42,7 +42,7 @@ class SubjectConfigTest {
         int weeklyLessons = SubjectConfig.getWeeklyLessons(Subject.INFORMATICS);
 
         // Then
-        assertEquals(3, weeklyLessons);
+        assertEquals(4, weeklyLessons);
     }
 
     @Test
@@ -52,7 +52,7 @@ class SubjectConfigTest {
         int weeklyLessons = SubjectConfig.getWeeklyLessons(Subject.PHYSICAL_CULTURE);
 
         // Then
-        assertEquals(2, weeklyLessons);
+        assertEquals(3, weeklyLessons);
     }
 
     @ParameterizedTest
@@ -87,7 +87,7 @@ class SubjectConfigTest {
 
         // Then
         // Math(5) + Physics(4) + Informatics(3) + Physical Culture(2) = 14
-        assertEquals(14, totalLessons);
+        assertEquals(16, totalLessons);
     }
 
     @Test
@@ -114,7 +114,7 @@ class SubjectConfigTest {
 
         // Then
         // 14 total lessons / 5 days = 2.8
-        assertEquals(2.8, averageLessons, 0.001);
+        assertEquals(3.2, averageLessons, 0.001);
     }
 
     @Test

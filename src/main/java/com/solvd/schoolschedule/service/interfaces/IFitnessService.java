@@ -23,11 +23,11 @@ public interface IFitnessService {
      */
     void evaluatePopulation(List<Timetable> population);
 
-    /**
-     * Count the number of lessons that the group
-     * doesn't have yet (compared to the SchoolConfig)
-     * @param lessons list of lessons for the group
-     * @return needed number of lessons to be added
-     */
-    int calculateGroupAdjustment(List<Lesson> lessons);
+//    /**
+//     * Count the number of lessons that the group
+//     * doesn't have yet (compared to the SchoolConfig)
+//     * @param lessons list of lessons for the group
+//     * @return needed number of lessons to be added
+//     */
+    // int calculateGroupAdjustment(List<Lesson> lessons);
 }
