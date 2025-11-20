@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.solvd.schoolschedule.dao.interfaces.ITimetableDAO;
-import com.solvd.schoolschedule.model.SchoolConfig;
 import com.solvd.schoolschedule.model.Timetable;
 import com.solvd.schoolschedule.util.ConnectionPool;
 

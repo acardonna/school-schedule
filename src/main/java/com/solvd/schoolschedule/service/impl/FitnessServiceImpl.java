@@ -34,7 +34,6 @@ public class FitnessServiceImpl implements IFitnessService {
         fitness -= calculateGroupGaps(timetable) * 50;               // Group gaps (no gaps rule)
         fitness -= calculateTeacherGaps(timetable) * 50;             // Teacher gaps (no gaps rule)
         fitness -= calculateMaxLessonsPerDayViolations(timetable) * 40; // Max 6 lessons/day
-        fitness -= calculateTeacherLessonLimitViolations(timetable) * 0; // 2-3 lessons/day limit
         fitness -= calculateInvalidAssignments(timetable) * 100;     // Invalid assignments
         fitness -= calculateGroupCollisions(timetable) * 50;        //No 2 lessons at the same time for a group
         fitness -= calculateTeacherCollisions(timetable) * 50;      //No 2 lessons at the same time for a teacher

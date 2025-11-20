@@ -42,7 +42,7 @@ class SubjectConfigTest {
         int weeklyLessons = SubjectConfig.getWeeklyLessons(Subject.INFORMATICS);
 
         // Then
-        assertEquals(3, weeklyLessons);
+        assertEquals(2, weeklyLessons);
     }
 
     @Test
@@ -52,7 +52,7 @@ class SubjectConfigTest {
         int weeklyLessons = SubjectConfig.getWeeklyLessons(Subject.PHYSICAL_CULTURE);
 
         // Then
-        assertEquals(2, weeklyLessons);
+        assertEquals(3, weeklyLessons);
     }
 
     @ParameterizedTest

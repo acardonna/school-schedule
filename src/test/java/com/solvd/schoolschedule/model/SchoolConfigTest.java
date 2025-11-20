@@ -49,9 +49,9 @@ class SchoolConfigTest {
     }
 
     @Test
-    @DisplayName("GA max generations should be 400")
+    @DisplayName("GA max generations should be 700")
     void testGAMaxGenerations() {
-        assertEquals(400, SchoolConfig.GA_MAX_GENERATIONS);
+        assertEquals(700, SchoolConfig.GA_MAX_GENERATIONS);
     }
 
     @Test
