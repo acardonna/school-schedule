@@ -168,27 +168,6 @@ public class FitnessServiceImpl implements IFitnessService {
     }
 
     /**
-     * Count violations of teacher lesson limits (2-3 lessons per day)
-     * @param timetable the timetable
-     * @return number of violations
-     */
-    private int calculateTeacherLessonLimitViolations(Timetable timetable) {
-        int violations = 0;
-
-        for (Teacher teacher : populationService.getTeachers()) {
-            for (int day = 0; day < SchoolConfig.WORKING_DAYS_PER_WEEK; day++) {
-                List<Lesson> dayLessons = timetable.getLessonsOnDayFor(teacher, day);
-                int lessonCount = dayLessons.size();
-                if (lessonCount < 2 || lessonCount > 3) {
-                    violations++;
-                }
-            }
-        }
-
-        return violations;
-    }
-
-    /**
      * Count invalid assignments (teacher-subject mismatches, room-subject incompatibilities)
      * @param timetable the timetable
      * @return number of invalid assignments
