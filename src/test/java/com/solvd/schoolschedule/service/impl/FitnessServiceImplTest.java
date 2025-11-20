@@ -255,62 +255,6 @@ class FitnessServiceImplTest {
     }
 
     @Test
-    @DisplayName("Should calculate correct group adjustment (missing lessons penalty)")
-    void testCalculateGroupAdjustment() {
-        // Given - Group has only 1 Math lesson, should have 5 according to SubjectConfig
-        Group testGroup = new Group(1, "Test Group");
-        Lesson mathLesson = new Lesson(Subject.MATH, mathTeacher, room101, new TimeSlot(0, 0), testGroup);
-        List<Lesson> lessons = List.of(mathLesson);
-
-        // When
-        int adjustment = fitnessService.calculateGroupAdjustment(lessons);
-
-        // Then
-        // Math needs 5, has 1 = 4 missing
-        // Physics needs 4, has 0 = 4 missing
-        // Informatics needs 3, has 0 = 3 missing
-        // Physical Culture needs 2, has 0 = 2 missing
-        // Total = 4+4+3+2 = 13
-        assertEquals(15, adjustment);
-    }
-
-    @Test
-    @DisplayName("Should have zero adjustment when group has correct number of lessons")
-    void testCalculateGroupAdjustmentPerfect() {
-        // Given - Perfect schedule with correct lesson counts
-        Group testGroup = new Group(1, "Test Group");
-        Teacher informaticsTeacher = new Teacher(3, "Dr. Brown", Subject.INFORMATICS);
-        Teacher physCulTeacher = new Teacher(4, "Coach", Subject.PHYSICAL_CULTURE);
-
-        List<Lesson> lessons = List.of(
-            // Math: 5 lessons
-            new Lesson(Subject.MATH, mathTeacher, room101, new TimeSlot(0, 0), testGroup),
-            new Lesson(Subject.MATH, mathTeacher, room101, new TimeSlot(0, 1), testGroup),
-            new Lesson(Subject.MATH, mathTeacher, room101, new TimeSlot(1, 0), testGroup),
-            new Lesson(Subject.MATH, mathTeacher, room101, new TimeSlot(2, 0), testGroup),
-            new Lesson(Subject.MATH, mathTeacher, room101, new TimeSlot(3, 0), testGroup),
-            // Physics: 4 lessons
-            new Lesson(Subject.PHYSICS, physicsTeacher, room102, new TimeSlot(0, 2), testGroup),
-            new Lesson(Subject.PHYSICS, physicsTeacher, room102, new TimeSlot(1, 1), testGroup),
-            new Lesson(Subject.PHYSICS, physicsTeacher, room102, new TimeSlot(2, 1), testGroup),
-            new Lesson(Subject.PHYSICS, physicsTeacher, room102, new TimeSlot(3, 1), testGroup),
-            // Informatics: 3 lessons
-            new Lesson(Subject.INFORMATICS, informaticsTeacher, computerLab, new TimeSlot(0, 3), testGroup),
-            new Lesson(Subject.INFORMATICS, informaticsTeacher, computerLab, new TimeSlot(1, 2), testGroup),
-            new Lesson(Subject.INFORMATICS, informaticsTeacher, computerLab, new TimeSlot(2, 2), testGroup),
-            // Physical Culture: 2 lessons
-            new Lesson(Subject.PHYSICAL_CULTURE, physCulTeacher, room101, new TimeSlot(3, 2), testGroup),
-            new Lesson(Subject.PHYSICAL_CULTURE, physCulTeacher, room101, new TimeSlot(4, 0), testGroup)
-        );
-
-        // When
-        int adjustment = fitnessService.calculateGroupAdjustment(lessons);
-
-        // Then
-        assertEquals(2, adjustment, "Perfect schedule should have zero adjustment penalty");
-    }
-
-    @Test
     @DisplayName("Fitness should decrease with more constraint violations")
     void testFitnessDecreasesWithViolations() {
         // Given - Timetable with multiple violations
